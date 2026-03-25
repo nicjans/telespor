@@ -12,7 +12,8 @@
   --tx:#1a1a18;--tx2:#5f5e5a;--tx3:#9a9890;
   --green:#1D9E75;--gbg:#e1f5ee;--gdk:#0f6e56;
   --amber:#BA7517;--abg:#faeeda;
-  --coral:#D85A30;--blue:#185FA5;
+  --coral:#D85A30;--cbg:#faece7;
+  --blue:#185FA5;--bbg:#e6f1fb;
   --red:#A32D2D;--rbg:#fcebeb;
   --r:10px;--rs:6px
 }
@@ -20,42 +21,46 @@
   --bg:#1a1a18;--sf:#232321;--s2:#2c2c2a;
   --bd:rgba(200,200,180,.09);--bd2:rgba(200,200,180,.18);
   --tx:#e8e6df;--tx2:#9a9890;--tx3:#5f5e5a;
-  --gbg:#04342c;--abg:#412402;--rbg:#501313
+  --gbg:#04342c;--abg:#412402;--cbg:#4a1b0c;--bbg:#042c53;--rbg:#501313
 }}
 body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--tx);font-size:14px;min-height:100vh}
+
+/* ── TOPBAR ── */
 .topbar{background:var(--sf);border-bottom:.5px solid var(--bd2);padding:0 28px;height:52px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:20}
 .logo{width:30px;height:30px;background:var(--gbg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px}
 .t-title{font-size:15px;font-weight:500}
 .t-sub{font-size:12px;color:var(--tx2)}
 .t-right{margin-left:auto;display:flex;gap:8px;align-items:center}
-.main{max-width:1200px;margin:0 auto;padding:28px 20px}
+
+/* ── TABS ── */
+.tab-bar{background:var(--sf);border-bottom:.5px solid var(--bd2);padding:0 28px;display:flex;gap:0}
+.tab-btn{font-size:13px;padding:12px 18px;border:none;background:transparent;color:var(--tx2);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s;white-space:nowrap}
+.tab-btn:hover{color:var(--tx)}
+.tab-btn.active{color:var(--green);border-bottom-color:var(--green);font-weight:500}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* ── MAIN ── */
+.main{max-width:1300px;margin:0 auto;padding:28px 20px}
+
+/* ── LOGIN ── */
+#loginScreen{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;align-items:center;justify-content:center}
+.lbox{background:var(--sf);border:.5px solid var(--bd2);border-radius:var(--r);padding:36px 40px;width:340px;text-align:center}
+.lbox h1{font-size:18px;font-weight:500;margin-bottom:4px}
+.lbox p{font-size:13px;color:var(--tx2);margin-bottom:24px}
+.linput{width:100%;font-size:14px;padding:10px 14px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--s2);color:var(--tx);outline:none;margin-bottom:10px;letter-spacing:2px;text-align:center}
+.linput:focus{border-color:var(--green)}
+.lbtn{width:100%;font-size:14px;padding:10px;border-radius:var(--rs);border:none;background:var(--green);color:#fff;cursor:pointer;font-weight:500}
+.lbtn:hover{background:var(--gdk)}
+.lerr{font-size:12px;color:var(--red);margin-top:8px;min-height:18px}
+
+/* ── SHARED ── */
 .dz{border:2px dashed var(--bd2);border-radius:var(--r);background:var(--sf);padding:40px 32px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;margin-bottom:20px;position:relative}
 .dz:hover,.dz.over{border-color:var(--green);background:var(--gbg)}
 .dz input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .dz h2{font-size:16px;font-weight:500;margin-bottom:6px}
 .dz p{font-size:13px;color:var(--tx2);margin-bottom:8px}
 .fmt{font-size:11px;font-family:monospace;background:var(--s2);color:var(--tx2);border:.5px solid var(--bd2);border-radius:4px;padding:3px 10px;display:inline-block}
-#statusPanel{display:none;background:var(--sf);border:.5px solid var(--bd2);border-radius:var(--r);padding:22px 24px;margin-bottom:20px}
-.sp-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
-.sp-icon{font-size:26px;flex-shrink:0}
-.sp-icon.spin{animation:spin 1.1s linear infinite;display:inline-block}
-@keyframes spin{to{transform:rotate(360deg)}}
-.sp-title{font-size:15px;font-weight:500;margin-bottom:2px}
-.sp-sub{font-size:12px;color:var(--tx2)}
-.ptrack{height:10px;background:var(--s2);border-radius:5px;overflow:hidden;margin-bottom:16px}
-.pfill{height:10px;border-radius:5px;background:var(--green);width:0%;transition:width .4s ease}
-.pfill.ok{background:var(--green)}
-.pfill.fail{background:var(--red)}
-.steps{display:flex;flex-direction:column;gap:8px}
-.step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--tx2)}
-.step.on{color:var(--tx);font-weight:500}
-.step.ok{color:var(--gdk)}
-.step.fail{color:var(--red)}
-.dot{width:9px;height:9px;border-radius:50%;background:var(--bd2);flex-shrink:0;transition:background .2s}
-.step.on .dot{background:var(--green);animation:blink 1s ease-in-out infinite}
-.step.ok .dot{background:var(--green)}
-.step.fail .dot{background:var(--red)}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .errbox{background:var(--rbg);border:.5px solid var(--red);border-radius:var(--rs);padding:10px 14px;font-size:13px;color:var(--red);margin-bottom:14px;display:none}
 .btn{display:inline-flex;align-items:center;gap:5px;font-size:13px;padding:7px 14px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sf);color:var(--tx);cursor:pointer;transition:background .13s;white-space:nowrap}
 .btn:hover{background:var(--s2)}
@@ -65,33 +70,58 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
 .btn.gh:hover{background:var(--s2);color:var(--tx)}
 .btn.del{background:var(--rbg);color:var(--red);border-color:var(--red)}
 .btn.del:hover{background:var(--red);color:#fff}
+.btn:disabled{background:var(--s2);color:var(--tx2);border-color:var(--bd);cursor:not-allowed}
+
+/* ── STATUS ── */
+#statusPanel{display:none;background:var(--sf);border:.5px solid var(--bd2);border-radius:var(--r);padding:22px 24px;margin-bottom:20px}
+.sp-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.sp-icon{font-size:26px;flex-shrink:0}
+.sp-icon.spin{animation:spin 1.1s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sp-title{font-size:15px;font-weight:500;margin-bottom:2px}
+.sp-sub{font-size:12px;color:var(--tx2)}
+.ptrack{height:10px;background:var(--s2);border-radius:5px;overflow:hidden;margin-bottom:16px}
+.pfill{height:10px;border-radius:5px;background:var(--green);width:0%;transition:width .4s ease}
+.pfill.ok{background:var(--green)}.pfill.fail{background:var(--red)}
+.steps{display:flex;flex-direction:column;gap:8px}
+.step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--tx2)}
+.step.on{color:var(--tx);font-weight:500}.step.ok{color:var(--gdk)}.step.fail{color:var(--red)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--bd2);flex-shrink:0}
+.step.on .dot{background:var(--green);animation:blink 1s ease-in-out infinite}
+.step.ok .dot{background:var(--green)}.step.fail .dot{background:var(--red)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── STATS ── */
 .sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px;margin-bottom:18px}
 .scard{background:var(--sf);border:.5px solid var(--bd);border-radius:var(--r);padding:14px 18px}
 .scard .sl{font-size:11px;color:var(--tx2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
 .scard .sv{font-size:23px;font-weight:500;line-height:1.1}
 .scard .ss{font-size:11px;color:var(--tx2);margin-top:3px}
+
+/* ── CHART ── */
 .chart-card{background:var(--sf);border:.5px solid var(--bd);border-radius:var(--r);margin-bottom:18px;overflow:hidden}
 .chart-head{padding:12px 18px;border-bottom:.5px solid var(--bd);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .chart-head h2{font-size:14px;font-weight:500;margin-right:auto}
-.ctabs{display:flex;gap:4px}
+.ctabs{display:flex;gap:4px;flex-wrap:wrap}
 .ctab{font-size:11px;padding:4px 10px;border-radius:20px;border:.5px solid var(--bd2);background:transparent;color:var(--tx2);cursor:pointer;transition:all .13s}
 .ctab.active{background:var(--green);color:#fff;border-color:var(--green)}
 .chart-body{padding:16px 18px 12px}
 .chart-wrap{overflow-y:auto;overflow-x:hidden}
 .chart-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;cursor:pointer;border-radius:var(--rs);padding:2px 4px;transition:background .12s}
-.chart-row:hover{background:var(--s2)}
-.chart-row.sel{background:var(--gbg)}
+.chart-row:hover{background:var(--s2)}.chart-row.sel{background:var(--gbg)}
 .clbl{font-size:11px;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;width:90px}
 .cbar-wrap{flex:1;background:var(--s2);border-radius:3px;height:10px;min-width:0}
 .cbar{height:10px;border-radius:3px;transition:width .4s ease}
-.cval{font-size:11px;font-weight:500;color:var(--tx2);white-space:nowrap;flex-shrink:0;min-width:54px;text-align:right}
+.cval{font-size:11px;font-weight:500;color:var(--tx2);white-space:nowrap;flex-shrink:0;min-width:60px;text-align:right}
 .chart-legend{display:flex;gap:16px;margin-top:10px;padding-top:8px;border-top:.5px solid var(--bd);flex-wrap:wrap}
 .chart-legend span{font-size:11px;color:var(--tx2);display:flex;align-items:center;gap:5px}
 .chart-legend .cdot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+/* ── FILTER / TABLE ── */
 .fbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
-input[type=search],select{font-size:13px;padding:7px 12px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sf);color:var(--tx);outline:none}
+input[type=search],input[type=date],input[type=time],input[type=number],select{font-size:13px;padding:7px 12px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sf);color:var(--tx);outline:none}
 input[type=search]{width:210px}
-input[type=search]:focus,select:focus{border-color:var(--green)}
+input[type=search]:focus,select:focus,input:focus{border-color:var(--green)}
 .flbl{font-size:12px;color:var(--tx2)}
 .cbadge{font-size:12px;color:var(--tx2)}
 .del-banner{display:none;background:var(--rbg);border:.5px solid var(--red);border-radius:var(--rs);padding:8px 14px;font-size:13px;color:var(--red);align-items:center;gap:10px;margin-bottom:12px}
@@ -120,8 +150,72 @@ input[type=checkbox]{width:15px;height:15px;cursor:pointer;accent-color:var(--gr
 .ph{background:var(--gbg);color:var(--gdk)}.pm{background:var(--abg);color:var(--amber)}.pl{background:var(--s2);color:var(--tx2)}
 .tw{color:var(--coral);font-weight:500}.tc{color:var(--blue);font-weight:500}
 .bok{color:var(--gdk)}.blow{color:var(--coral)}
-#results{display:none}
-.footer{text-align:center;font-size:11px;color:var(--tx3);margin-top:28px;padding-bottom:24px}
+
+/* ── BATTERY TAB ── */
+.step-card{background:var(--sf);border:.5px solid var(--bd);border-radius:var(--r);padding:22px 24px;margin-bottom:16px}
+.step-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--gbg);color:var(--gdk);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-head h2{font-size:15px;font-weight:500}
+.step-done{color:var(--green);font-size:18px;display:none}
+.bat-dz{border:2px dashed var(--bd2);border-radius:var(--r);background:var(--s2);padding:28px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
+.bat-dz:hover,.bat-dz.over{border-color:var(--amber);background:var(--abg)}
+.bat-dz input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.bat-dz h3{font-size:14px;font-weight:500;margin-bottom:4px}
+.bat-dz p{font-size:12px;color:var(--tx2)}
+.file-loaded{background:var(--gbg);border:.5px solid var(--green);border-radius:var(--rs);padding:10px 14px;font-size:13px;color:var(--gdk);display:none;align-items:center;gap:8px;margin-top:10px}
+.file-loaded.show{display:flex}
+.ai-box{background:var(--bbg);border:.5px solid var(--blue);border-radius:var(--rs);padding:14px 16px;margin-top:14px}
+.ai-box-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;font-weight:500;color:var(--blue)}
+.ai-sug{font-size:13px;color:var(--tx);line-height:1.6}
+.ai-sug.loading{color:var(--tx2);font-style:italic}
+.gap-list{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+.gap-chip{font-size:11px;background:var(--sf);border:.5px solid var(--bd2);border-radius:20px;padding:3px 10px;cursor:pointer;transition:all .13s}
+.gap-chip:hover,.gap-chip.sel{background:var(--blue);color:#fff;border-color:var(--blue)}
+.date-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-top:14px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:12px;color:var(--tx2)}
+.field .hint{font-size:11px;color:var(--tx3);margin-top:2px}
+.gauge-card{background:var(--sf);border:.5px solid var(--bd);border-radius:var(--r);padding:24px;margin-bottom:16px}
+.gauge-card h2{font-size:15px;font-weight:500;margin-bottom:20px}
+.gauge-layout{display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap}
+.gauge-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.gauge-pct{font-size:52px;font-weight:500;line-height:1;margin-top:8px}
+.gauge-status{font-size:13px;margin-top:4px;font-weight:500}
+.gauge-right{flex:1;min-width:220px}
+.since-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.since-card{background:var(--s2);border-radius:var(--rs);padding:12px 14px;text-align:center}
+.since-card .sl{font-size:11px;color:var(--tx2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.since-card .sv{font-size:19px;font-weight:500}
+.since-card .ss{font-size:11px;color:var(--tx2);margin-top:2px}
+.wh-details{display:flex;flex-direction:column;gap:4px;margin-top:8px}
+.wh-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:.5px solid var(--bd);font-size:13px}
+.wh-row:last-child{border-bottom:none}
+.wh-k{color:var(--tx2)}.wh-v{font-weight:500;text-align:right}
+.bkdown-card{background:var(--sf);border:.5px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:16px}
+.bc-head{padding:12px 18px;border-bottom:.5px solid var(--bd);font-size:14px;font-weight:500}
+.cbar2-wrap{background:var(--s2);border-radius:3px;height:5px;margin-top:4px}
+.cbar2{height:5px;border-radius:3px}
+.bdg{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:500}
+.b-lora{background:var(--bbg);color:var(--blue)}.b-lte{background:var(--cbg);color:var(--coral)}
+.b-gps{background:var(--gbg);color:var(--gdk)}.b-sys{background:var(--s2);color:var(--tx2)}
+.sig-card{background:var(--sf);border:.5px solid var(--bd);border-radius:var(--r);padding:18px;margin-bottom:16px}
+.sig-card h3{font-size:14px;font-weight:500;margin-bottom:12px}
+.sig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.sig-item{background:var(--s2);border-radius:var(--rs);padding:12px;text-align:center}
+.sig-icon{font-size:20px;margin-bottom:4px}
+.sig-lbl{font-size:11px;color:var(--tx2);margin-bottom:3px}
+.sig-val{font-size:17px;font-weight:500}
+.sig-sub{font-size:11px;color:var(--tx2);margin-top:2px}
+.tl-card{background:var(--sf);border:.5px solid var(--bd);border-radius:var(--r);padding:18px;margin-bottom:16px}
+.tl-card h3{font-size:14px;font-weight:500;margin-bottom:12px}
+.set-card{background:var(--sf);border:.5px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:16px}
+.set-head{padding:12px 18px;border-bottom:.5px solid var(--bd);font-size:14px;font-weight:500;cursor:pointer;display:flex;justify-content:space-between;user-select:none}
+.set-head:hover{background:var(--s2)}
+.set-body{display:none;padding:18px;grid-template-columns:1fr 1fr;gap:12px 24px}
+.set-body.open{display:grid}
+.disclaimer{background:var(--abg);border:.5px solid var(--amber);border-radius:var(--rs);padding:10px 14px;font-size:12px;color:var(--amber);margin-bottom:16px}
+
+/* ── MODAL ── */
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:100;align-items:center;justify-content:center}
 .modal.open{display:flex}
 .mbox{background:var(--sf);border-radius:var(--r);border:.5px solid var(--bd2);padding:24px;max-width:480px;width:94%;max-height:90vh;overflow-y:auto}
@@ -130,48 +224,54 @@ input[type=checkbox]{width:15px;height:15px;cursor:pointer;accent-color:var(--gr
 .dr:last-child{border-bottom:none}
 .dk{color:var(--tx2)}.dv{font-weight:500;text-align:right}
 
-/* LOGIN */
-#loginScreen{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;align-items:center;justify-content:center}
-.login-box{background:var(--sf);border:.5px solid var(--bd2);border-radius:var(--r);padding:36px 40px;width:340px;text-align:center}
-.login-logo{font-size:40px;margin-bottom:12px}
-.login-box h1{font-size:18px;font-weight:500;margin-bottom:4px}
-.login-box p{font-size:13px;color:var(--tx2);margin-bottom:24px}
-.login-input{width:100%;font-size:14px;padding:10px 14px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--s2);color:var(--tx);outline:none;margin-bottom:10px;letter-spacing:2px;text-align:center}
-.login-input:focus{border-color:var(--green)}
-.login-btn{width:100%;font-size:14px;padding:10px;border-radius:var(--rs);border:none;background:var(--green);color:#fff;cursor:pointer;font-weight:500;transition:background .13s}
-.login-btn:hover{background:var(--gdk)}
-.login-err{font-size:12px;color:var(--red);margin-top:8px;min-height:18px}
+#rankResults{display:none}
+#batResults{display:none}
+.footer{text-align:center;font-size:11px;color:var(--tx3);margin-top:28px;padding-bottom:24px}
 </style>
 </head>
 <body>
+
+<!-- LOGIN -->
 <div id="loginScreen">
-  <div class="login-box">
-    <div class="login-logo">🐑</div>
+  <div class="lbox">
+    <div style="font-size:40px;margin-bottom:12px">🐑</div>
     <h1>Telespor Aktivitetssporing</h1>
     <p>Skriv inn passordet for å fortsette</p>
-    <input class="login-input" type="password" id="pwInput" placeholder="••••••••" maxlength="50">
-    <button class="login-btn" onclick="checkPassword()">Logg inn</button>
-    <div class="login-err" id="loginErr"></div>
+    <input class="linput" type="password" id="pwInput" placeholder="••••••••" maxlength="50">
+    <button class="lbtn" onclick="checkPassword()">Logg inn</button>
+    <div class="lerr" id="loginErr"></div>
   </div>
 </div>
 
 <div class="topbar">
   <div class="logo">🐑</div>
-  <div><div class="t-title">Telespor Aktivitetssporing</div><div class="t-sub">GPS-basert rangering av sauer · maks 40 km/t</div></div>
+  <div><div class="t-title">Telespor Aktivitetssporing</div><div class="t-sub">GPS-basert sporing av sauer</div></div>
   <div class="t-right" id="topAct" style="display:none">
-    <button class="btn gh" onclick="resetApp()">✕ Nullstill</button>
+    <button class="btn gh" onclick="resetRanking()">✕ Nullstill</button>
     <button class="btn del" id="delBtn" style="display:none" onclick="deleteSelected()">🗑 Slett (<span id="delCount">0</span>)</button>
     <button class="btn g" onclick="exportCSV()">⬇ Eksporter</button>
   </div>
 </div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('ranking',this)">📊 Rangering</button>
+  <button class="tab-btn" onclick="switchTab('battery',this)">🔋 Batterianalyse</button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 1: RANGERING
+     ══════════════════════════════════════════════ -->
+<div class="tab-pane active" id="tab-ranking">
 <div class="main">
-  <div class="dz" id="dz">
-    <input type="file" id="fileInput" accept=".csv,.txt">
+  <div class="dz" id="rankDz">
+    <input type="file" id="rankFileInput" accept=".csv,.txt">
     <div style="font-size:38px;margin-bottom:12px">📂</div>
     <h2>Slipp Telespor CSV-fil her, eller klikk for å velge</h2>
     <p>Fungerer direkte i nettleseren — ingen server nødvendig</p>
     <div class="fmt">Individnr · Lengdegrad · Breddegrad · Måletidspunkt</div>
   </div>
+
   <div id="statusPanel">
     <div class="sp-head">
       <span class="sp-icon" id="spIcon">⏳</span>
@@ -179,22 +279,26 @@ input[type=checkbox]{width:15px;height:15px;cursor:pointer;accent-color:var(--gr
     </div>
     <div class="ptrack"><div class="pfill" id="pfill"></div></div>
     <div class="steps">
-      <div class="step" id="s-read">  <span class="dot"></span>Leser fil</div>
-      <div class="step" id="s-parse"> <span class="dot"></span>Validerer GPS-data</div>
-      <div class="step" id="s-calc">  <span class="dot"></span>Beregner distanser og score</div>
+      <div class="step" id="s-read"><span class="dot"></span>Leser fil</div>
+      <div class="step" id="s-parse"><span class="dot"></span>Validerer GPS-data</div>
+      <div class="step" id="s-calc"><span class="dot"></span>Beregner distanser, homerange og score</div>
       <div class="step" id="s-render"><span class="dot"></span>Viser resultater</div>
     </div>
   </div>
-  <div class="errbox" id="errBox"></div>
-  <div id="results">
+
+  <div class="errbox" id="rankErr"></div>
+
+  <div id="rankResults">
     <div class="sgrid" id="sGrid"></div>
     <div class="chart-card">
       <div class="chart-head">
         <h2>Aktivitetsoversikt</h2>
         <div class="ctabs" id="ctabs">
-          <button class="ctab active" data-metric="score">Score</button>
+          <button class="ctab active" data-metric="score">Aktivitet</button>
+          <button class="ctab" data-metric="roScore">I ro</button>
           <button class="ctab" data-metric="dist">Distanse</button>
           <button class="ctab" data-metric="avgSpeed">Snittfart</button>
+          <button class="ctab" data-metric="homerange">Beiteområde</button>
           <button class="ctab" data-metric="points">Målinger</button>
         </div>
         <select id="chartTop" style="font-size:12px;padding:4px 8px;margin-left:8px">
@@ -213,6 +317,10 @@ input[type=checkbox]{width:15px;height:15px;cursor:pointer;accent-color:var(--gr
       <span class="flbl">Sorter etter:</span>
       <select id="sortSel">
         <option value="score">Aktivitetsscore</option>
+        <option value="roScore">Mest i ro</option>
+        <option value="stasScore">Stasjonær-score</option>
+        <option value="stasRank">Stasjonær-rang</option>
+        <option value="homerange">Beiteområde (km²)</option>
         <option value="dist">Distanse (km)</option>
         <option value="avgSpeed">Snittfart</option>
         <option value="maxSpeed">Topphastighet</option>
@@ -241,6 +349,9 @@ input[type=checkbox]{width:15px;height:15px;cursor:pointer;accent-color:var(--gr
             <th data-k="maxSpeed">Topphast.<span class="sa">↕</span></th>
             <th data-k="points">Målinger<span class="sa">↕</span></th>
             <th data-k="span">Periode<span class="sa">↕</span></th>
+            <th data-k="homerange">Beiteområde<span class="sa">↕</span></th>
+            <th data-k="stasRank">St.rang<span class="sa">↕</span></th>
+            <th data-k="roScore">I ro<span class="sa">↕</span></th>
             <th data-k="avgTemp">Temp °C<span class="sa">↕</span></th>
             <th data-k="avgBatt">Batteri V<span class="sa">↕</span></th>
             <th data-k="score">Aktivitet<span class="sa">↕</span></th>
@@ -251,350 +362,368 @@ input[type=checkbox]{width:15px;height:15px;cursor:pointer;accent-color:var(--gr
       </div>
     </div>
   </div>
-  <div class="footer">Telespor Aktivitetssporing · Kjører helt lokalt i nettleseren · ingen data sendes ut</div>
+  <div class="footer">Telespor Aktivitetssporing · maks 40 km/t · ingen data sendes ut</div>
 </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 2: BATTERIANALYSE
+     ══════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-battery">
+<div class="main">
+
+  <!-- Steg 1 -->
+  <div class="step-card">
+    <div class="step-head">
+      <span class="step-num">1</span>
+      <h2>Last opp CSV-fil for enheten</h2>
+      <span class="step-done" id="batStep1Done">✓</span>
+    </div>
+    <div class="bat-dz" id="batDz">
+      <input type="file" id="batFileInput" accept=".csv,.txt">
+      <div style="font-size:32px;margin-bottom:8px">📂</div>
+      <h3>Slipp Telespor CSV-fil her</h3>
+      <p>Kun én enhet om gangen — analysen starter fra batteribyttedato</p>
+    </div>
+    <div class="file-loaded" id="batFileLoaded">
+      <span>✅</span><span id="batFileInfo"></span>
+    </div>
+  </div>
+
+  <!-- Steg 2 -->
+  <div class="step-card">
+    <div class="step-head">
+      <span class="step-num">2</span>
+      <h2>Angi dato for siste batteribytte</h2>
+    </div>
+    <div class="ai-box" id="aiBox" style="display:none">
+      <div class="ai-box-head"><span>🤖</span> AI-anbefaling basert på dataloggen</div>
+      <div class="ai-sug loading" id="aiSug">Analyserer opphold i dataloggen...</div>
+      <div class="gap-list" id="gapList"></div>
+    </div>
+    <div class="date-row">
+      <div class="field">
+        <label>Dato for batteribytte</label>
+        <input type="date" id="batDate">
+        <span class="hint">Velg datoen batteriet ble satt inn</span>
+      </div>
+      <div class="field">
+        <label>Klokkeslett (valgfritt)</label>
+        <input type="time" id="batTime" value="08:00">
+      </div>
+      <button class="btn g" id="calcBtn" onclick="runBatCalc()" disabled>⚡ Beregn energi</button>
+    </div>
+  </div>
+
+  <div class="errbox" id="batErr"></div>
+
+  <div id="batResults">
+    <div class="disclaimer">⚠ <strong>Estimat:</strong> LiSOCl2-celler har flat utladingskurve — batterispenning er ikke et godt mål på kapasitet. Beregningen bruker spenning fra hvert datapunkt × modellert strøm for å estimere Wh brukt.</div>
+
+    <div class="gauge-card">
+      <h2>🔋 Estimert batteristatus</h2>
+      <div class="gauge-layout">
+        <div class="gauge-left">
+          <canvas id="gaugeCanvas" width="200" height="160"></canvas>
+          <div class="gauge-pct" id="gaugePct">—</div>
+          <div class="gauge-status" id="gaugeStatus">—</div>
+        </div>
+        <div class="gauge-right">
+          <div class="since-grid" id="sinceGrid"></div>
+          <div class="wh-details" id="whDetails"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sig-card">
+      <h3>📡 Radio og signalkvalitet</h3>
+      <div class="sig-grid" id="sigGrid"></div>
+    </div>
+
+    <div class="bkdown-card">
+      <div class="bc-head">⚡ Energiforbruk per komponent</div>
+      <table>
+        <thead><tr>
+          <th>Komponent</th><th>Hendelser / tid</th><th>Energi (Wh)</th><th>Andel</th>
+        </tr></thead>
+        <tbody id="brkBody"></tbody>
+      </table>
+    </div>
+
+    <div class="tl-card">
+      <h3>📈 Estimert gjenværende energi over tid</h3>
+      <canvas id="tlCanvas" width="860" height="220" style="max-width:100%"></canvas>
+    </div>
+
+    <div class="set-card">
+      <div class="set-head" onclick="toggleSettings()">⚙ Juster parametere <span id="setArr">▼</span></div>
+      <div class="set-body" id="setBody">
+        <div class="field"><label>Batterikapasitet (Wh)</label><input type="number" id="s_wh" value="12.6" min="1" max="50" step="0.1" onchange="runBatCalc()"><span class="hint">LiSOCl2 18505M = 12.6 Wh</span></div>
+        <div class="field"><label>Nominell spenning (V)</label><input type="number" id="s_volt" value="3.6" min="2.5" max="4.2" step="0.05" onchange="runBatCalc()"><span class="hint">Fallback hvis spenning mangler</span></div>
+        <div class="field"><label>Sleep-strøm (µA)</label><input type="number" id="s_idle" value="25" min="1" max="500" step="1" onchange="runBatCalc()"><span class="hint">System sleep = 25 µA</span></div>
+        <div class="field"><label>LoRa TX-strøm (mA)</label><input type="number" id="s_loraTx" value="20" min="5" max="120" step="1" onchange="runBatCalc()"><span class="hint">LR1110 @ 15 dBm ≈ 20 mA</span></div>
+        <div class="field"><label>LoRa TX-varighet (ms)</label><input type="number" id="s_loraDur" value="500" min="50" max="5000" step="50" onchange="runBatCalc()"><span class="hint">Typisk 200–1000 ms</span></div>
+        <div class="field"><label>LTE-M aktiv tid (s)</label><input type="number" id="s_lteDur" value="5" min="1" max="60" step="1" onchange="runBatCalc()"><span class="hint">Reg. + TX + TAU ≈ 5 s</span></div>
+        <div class="field"><label>LTE-M TX-strøm (mA)</label><input type="number" id="s_lteTx" value="90" min="20" max="500" step="5" onchange="runBatCalc()"><span class="hint">nRF9160 ≈ 90 mA</span></div>
+        <div class="field"><label>GPS aktiv strøm (mA)</label><input type="number" id="s_gps" value="29" min="5" max="80" step="1" onchange="runBatCalc()"><span class="hint">Quectel L76LM ≈ 29 mA</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Telespor Batterianalyse · LiSOCl2 18505M · 12.6 Wh · Alle beregninger skjer lokalt</div>
+</div>
+</div>
+
+<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="mbox">
     <h3 id="dtTitle"></h3><div id="dtBody"></div><br>
     <button class="btn" onclick="document.getElementById('modal').classList.remove('open')">Lukk</button>
   </div>
 </div>
+
 <script>
 "use strict";
 
-/* ── PASSWORD ── */
-// Password is hashed so it's not visible as plain text in the file
-// SHA-256 of the password is stored instead
+/* ══════════════════════════════════════════
+   PASSWORD
+   ══════════════════════════════════════════ */
 var PASS_HASH = "3ebb00cb120b6245dce90fd26de6ce19c890678dffb21092761312526bfe799e";
-
-function sha256(str) {
-  // Simple async-free SHA256 using SubtleCrypto
-  var buf = new TextEncoder().encode(str);
-  return crypto.subtle.digest("SHA-256", buf).then(function(hash) {
-    return Array.from(new Uint8Array(hash)).map(function(b){ return b.toString(16).padStart(2,"0"); }).join("");
+function sha256(str){
+  var buf=new TextEncoder().encode(str);
+  return crypto.subtle.digest("SHA-256",buf).then(function(h){
+    return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
   });
 }
-
-function checkPassword() {
-  var pw = document.getElementById("pwInput").value;
-  sha256(pw).then(function(hash) {
-    if (hash === PASS_HASH) {
-      document.getElementById("loginScreen").style.display = "none";
-      sessionStorage.setItem("auth", "1");
-    } else {
-      document.getElementById("loginErr").textContent = "Feil passord, prøv igjen.";
-      document.getElementById("pwInput").value = "";
-      document.getElementById("pwInput").focus();
-    }
+function checkPassword(){
+  var pw=document.getElementById("pwInput").value;
+  sha256(pw).then(function(h){
+    if(h===PASS_HASH){document.getElementById("loginScreen").style.display="none";sessionStorage.setItem("auth","1");}
+    else{document.getElementById("loginErr").textContent="Feil passord, prøv igjen.";document.getElementById("pwInput").value="";}
   });
 }
+document.getElementById("pwInput").addEventListener("keydown",function(e){if(e.key==="Enter")checkPassword();});
+if(sessionStorage.getItem("auth")==="1") document.getElementById("loginScreen").style.display="none";
 
-// Allow Enter key in password field
-document.getElementById("pwInput").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") checkPassword();
-});
-
-// Stay logged in during same session
-if (sessionStorage.getItem("auth") === "1") {
-  document.getElementById("loginScreen").style.display = "none";
+/* ══════════════════════════════════════════
+   TABS
+   ══════════════════════════════════════════ */
+function switchTab(name,btn){
+  document.querySelectorAll(".tab-pane").forEach(function(p){p.classList.remove("active");});
+  document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active");});
+  document.getElementById("tab-"+name).classList.add("active");
+  btn.classList.add("active");
+  document.getElementById("topAct").style.display = name==="ranking" && rankAnimals.length ? "flex" : "none";
 }
 
-var animals = [];
-var sortKey = "score";
-var sortDir = -1;
-var chartMetric = "score";
-var MAX_SPEED = 40.0;
+/* ══════════════════════════════════════════
+   SHARED UTILS
+   ══════════════════════════════════════════ */
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function fmtSpan(h){if(!h||h<0)return"—";if(h<24)return h.toFixed(1)+" t";return Math.floor(h/24)+"d "+(h%24).toFixed(0)+"t";}
+function fmtDateShort(ep){if(!ep)return"—";return new Date(ep*1000).toLocaleDateString("no-NO",{dateStyle:"short"});}
+function fmtDateFull(ep){if(!ep)return"—";return new Date(ep*1000).toLocaleString("no-NO",{dateStyle:"short",timeStyle:"short"});}
+function isoDate(ts){return new Date(ts).toISOString().split("T")[0];}
+function fmtDateLbl(ts){return new Date(ts).toLocaleDateString("no-NO",{year:"numeric",month:"short",day:"numeric"});}
 
-/* ── HAVERSINE ── */
 function haversine(la1,lo1,la2,lo2){
-  var R=6371, toR=function(d){return d*Math.PI/180;};
-  var dlat=toR(la2-la1), dlon=toR(lo2-lo1);
+  var R=6371,toR=function(d){return d*Math.PI/180;};
+  var dlat=toR(la2-la1),dlon=toR(lo2-lo1);
   var a=Math.sin(dlat/2)*Math.sin(dlat/2)+Math.cos(toR(la1))*Math.cos(toR(la2))*Math.sin(dlon/2)*Math.sin(dlon/2);
   return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 }
 
-/* ── PARSE CSV IN BROWSER ── */
-function parseAndAggregate(text, progressCb) {
-  var lines = text.split(/\r?\n/);
-  if (lines.length < 2) throw new Error("Filen er for kort");
-  var sep = lines[0].split(";").length > lines[0].split(",").length ? ";" : ",";
-  var rawHdrs = lines[0].split(sep).map(function(h){ return h.trim().replace(/"/g,""); });
-  var hdrs = rawHdrs.map(function(h){
-    return h.toLowerCase()
-      .replace(/å/g,"a").replace(/ø/g,"o").replace(/æ/g,"ae")
-      .replace(/,/g,"_").replace(/ /g,"_");
-  });
+/* ══════════════════════════════════════════
+   ═══ TAB 1: RANKING ═══
+   ══════════════════════════════════════════ */
+var rankAnimals=[], sortKey="score", sortDir=-1, chartMetric="score";
+var MAX_SPEED=40.0;
 
-  function fi(exact, fuzzy) {
-    for (var i=0;i<hdrs.length;i++) { if (exact.indexOf(hdrs[i])>=0) return i; }
-    if (fuzzy) { for (var i=0;i<hdrs.length;i++) { for (var j=0;j<fuzzy.length;j++) { if (hdrs[i].indexOf(fuzzy[j])>=0) return i; } } }
-    return -1;
+function parseRankCSV(text){
+  var lines=text.split(/\r?\n/);
+  if(lines.length<2) throw new Error("Filen er for kort");
+  var sep=lines[0].split(";").length>lines[0].split(",").length?";":",";
+  var hdrs=lines[0].split(sep).map(function(h){return h.trim().replace(/"/g,"").toLowerCase().replace(/å/g,"a").replace(/ø/g,"o").replace(/æ/g,"ae").replace(/,/g,"_").replace(/ /g,"_");});
+  function fi(ex,fz){for(var i=0;i<hdrs.length;i++)if(ex.indexOf(hdrs[i])>=0)return i;if(fz)for(var i=0;i<hdrs.length;i++)for(var j=0;j<fz.length;j++)if(hdrs[i].indexOf(fz[j])>=0)return i;return -1;}
+  var idI=fi(["individnr"],["individ"]),tsI=fi(["maletidspunkt","mletidspunkt"],["tidspunkt","timestamp"]);
+  var latI=fi(["breddegrad"],["bredde","lat"]),lonI=fi(["lengdegrad"],["lengde","lon"]);
+  var valI=fi(["posisjon__gyldig","posisjon_gyldig"],["gyldig"]);
+  var tmpI=fi(["temperatur"],["temp"]),batI=fi(["batterispenning"],["batter"]),tspI=fi(["telespornr"],["telespor"]);
+  if(idI<0)idI=3;if(tsI<0)tsI=1;if(lonI<0)lonI=8;if(latI<0)latI=9;if(valI<0)valI=7;if(batI<0)batI=13;if(tmpI<0)tmpI=14;if(tspI<0)tspI=4;
+  var groups={};var total=0,skipped=0;
+  for(var i=1;i<lines.length;i++){
+    var line=lines[i].trim();if(!line)continue;total++;
+    var cols=line.split(sep);if(cols.length<4){skipped++;continue;}
+    if(valI<cols.length&&cols[valI].trim()==="0"){skipped++;continue;}
+    var lat=parseFloat(cols[latI]),lon=parseFloat(cols[lonI]);
+    if(isNaN(lat)||isNaN(lon)){skipped++;continue;}
+    var ts=new Date(cols[tsI].trim()).getTime()/1000;if(isNaN(ts)){skipped++;continue;}
+    var aid=cols[idI]?cols[idI].trim():"";
+    if(!aid||aid.toLowerCase()==="null"||aid==="-"||aid==="") aid=tspI<cols.length&&cols[tspI].trim()?"TSP-"+cols[tspI].trim():"ukjent";
+    var tsp=tspI<cols.length?cols[tspI].trim():"";
+    var temp=tmpI<cols.length?parseFloat(cols[tmpI]):NaN,batt=batI<cols.length?parseFloat(cols[batI]):NaN;
+    if(!groups[aid])groups[aid]={pts:[],temps:[],batts:[],tsp:tsp};
+    groups[aid].pts.push([ts,lat,lon]);
+    if(!isNaN(temp))groups[aid].temps.push(temp);
+    if(!isNaN(batt))groups[aid].batts.push(batt);
   }
-
-  var idI   = fi(["individnr"],["individ"]);
-  var tsI   = fi(["maletidspunkt","mletidspunkt"],["tidspunkt","timestamp"]);
-  var latI  = fi(["breddegrad"],["bredde","lat"]);
-  var lonI  = fi(["lengdegrad"],["lengde","lon"]);
-  var valI  = fi(["posisjon__gyldig","posisjon_gyldig"],["gyldig"]);
-  var tmpI  = fi(["temperatur"],["temp"]);
-  var batI  = fi(["batterispenning"],["batter"]);
-  var tspI  = fi(["telespornr"],["telespor"]);
-
-  if (idI  < 0) idI  = 3;
-  if (tsI  < 0) tsI  = 1;
-  if (lonI < 0) lonI = 8;
-  if (latI < 0) latI = 9;
-  if (valI < 0) valI = 7;
-  if (batI < 0) batI = 13;
-  if (tmpI < 0) tmpI = 14;
-  if (tspI < 0) tspI = 4;
-
-  var groups = {};
-  var total = 0, skipped = 0;
-  var chunkSize = 5000;
-
-  for (var i = 1; i < lines.length; i++) {
-    var line = lines[i].trim();
-    if (!line) continue;
-    total++;
-    var cols = line.split(sep);
-    if (cols.length < 4) { skipped++; continue; }
-    if (valI < cols.length && cols[valI].trim() === "0") { skipped++; continue; }
-    var lat = parseFloat(cols[latI]), lon = parseFloat(cols[lonI]);
-    if (isNaN(lat) || isNaN(lon)) { skipped++; continue; }
-    var ts = new Date(cols[tsI].trim()).getTime() / 1000;
-    if (isNaN(ts)) { skipped++; continue; }
-
-    var aid = cols[idI] ? cols[idI].trim() : "";
-    if (!aid || aid.toLowerCase() === "null" || aid === "-" || aid === "") {
-      aid = tspI < cols.length && cols[tspI].trim() ? "TSP-" + cols[tspI].trim() : "ukjent";
+  var ids=Object.keys(groups);if(!ids.length)throw new Error("Ingen gyldige GPS-posisjoner funnet.");
+  var result=[];
+  for(var g=0;g<ids.length;g++){
+    var aid=ids[g],gr=groups[aid];
+    gr.pts.sort(function(a,b){return a[0]-b[0];});
+    var dist=0,maxSpd=0;
+    for(var p=1;p<gr.pts.length;p++){
+      var d=haversine(gr.pts[p-1][1],gr.pts[p-1][2],gr.pts[p][1],gr.pts[p][2]);
+      var dth=(gr.pts[p][0]-gr.pts[p-1][0])/3600;
+      if(dth<=0||dth>=24)continue;var spd=d/dth;if(spd>MAX_SPEED)continue;
+      dist+=d;if(spd>maxSpd)maxSpd=spd;
     }
-    var tsp  = tspI < cols.length ? cols[tspI].trim() : "";
-    var temp = tmpI < cols.length ? parseFloat(cols[tmpI]) : NaN;
-    var batt = batI < cols.length ? parseFloat(cols[batI]) : NaN;
-
-    if (!groups[aid]) groups[aid] = {pts:[],temps:[],batts:[],tsp:tsp};
-    groups[aid].pts.push([ts, lat, lon]);
-    if (!isNaN(temp)) groups[aid].temps.push(temp);
-    if (!isNaN(batt)) groups[aid].batts.push(batt);
-
-    if (progressCb && i % chunkSize === 0) progressCb(Math.min(80, Math.round(i/lines.length*80)));
-  }
-
-  var ids = Object.keys(groups);
-  if (!ids.length) throw new Error("Ingen gyldige GPS-posisjoner funnet.");
-
-  var result = [];
-  for (var g = 0; g < ids.length; g++) {
-    var aid = ids[g], gr = groups[aid];
-    gr.pts.sort(function(a,b){ return a[0]-b[0]; });
-    var dist=0, maxSpd=0;
-    for (var p=1; p<gr.pts.length; p++) {
-      var d   = haversine(gr.pts[p-1][1],gr.pts[p-1][2],gr.pts[p][1],gr.pts[p][2]);
-      var dth = (gr.pts[p][0]-gr.pts[p-1][0])/3600;
-      if (dth<=0||dth>=24) continue;
-      var spd = d/dth;
-      if (spd > MAX_SPEED) continue;
-      dist += d;
-      if (spd > maxSpd) maxSpd = spd;
-    }
-    var span    = (gr.pts[gr.pts.length-1][0]-gr.pts[0][0])/3600;
-    var avgSpd  = span > 0 ? dist/span : 0;
-    var avgTemp = gr.temps.length ? gr.temps.reduce(function(a,b){return a+b;},0)/gr.temps.length : null;
-    var avgBatt = gr.batts.length ? gr.batts.reduce(function(a,b){return a+b;},0)/gr.batts.length : null;
-    result.push({
-      id: aid, telespor: gr.tsp,
-      dist: Math.round(dist*1000)/1000,
-      avgSpeed: Math.round(avgSpd*1000)/1000,
-      maxSpeed: Math.round(maxSpd*1000)/1000,
-      points: gr.pts.length,
-      span: Math.round(span*100)/100,
-      first: gr.pts[0][0], last: gr.pts[gr.pts.length-1][0],
-      avgTemp: avgTemp !== null ? Math.round(avgTemp*100)/100 : null,
-      minTemp: gr.temps.length ? Math.round(Math.min.apply(null,gr.temps)*10)/10 : null,
-      maxTemp: gr.temps.length ? Math.round(Math.max.apply(null,gr.temps)*10)/10 : null,
-      avgBatt: avgBatt !== null ? Math.round(avgBatt*1000)/1000 : null,
-    });
+    var span=(gr.pts[gr.pts.length-1][0]-gr.pts[0][0])/3600,avgSpd=span>0?dist/span:0;
+    var lats=gr.pts.map(function(p){return p[1];}),lons=gr.pts.map(function(p){return p[2];});
+    var minLat=Math.min.apply(null,lats),maxLat=Math.max.apply(null,lats);
+    var minLon=Math.min.apply(null,lons),maxLon=Math.max.apply(null,lons);
+    var midLat=(minLat+maxLat)/2,kmLat=111.32,kmLon=111.32*Math.cos(midLat*Math.PI/180);
+    var homerange=Math.round((maxLat-minLat)*kmLat*(maxLon-minLon)*kmLon*100)/100;
+    var avgTemp=gr.temps.length?gr.temps.reduce(function(a,b){return a+b;},0)/gr.temps.length:null;
+    var avgBatt=gr.batts.length?gr.batts.reduce(function(a,b){return a+b;},0)/gr.batts.length:null;
+    result.push({id:aid,telespor:gr.tsp,dist:Math.round(dist*1000)/1000,avgSpeed:Math.round(avgSpd*1000)/1000,maxSpeed:Math.round(maxSpd*1000)/1000,points:gr.pts.length,span:Math.round(span*100)/100,homerange:homerange,first:gr.pts[0][0],last:gr.pts[gr.pts.length-1][0],avgTemp:avgTemp!==null?Math.round(avgTemp*100)/100:null,minTemp:gr.temps.length?Math.round(Math.min.apply(null,gr.temps)*10)/10:null,maxTemp:gr.temps.length?Math.round(Math.max.apply(null,gr.temps)*10)/10:null,avgBatt:avgBatt!==null?Math.round(avgBatt*1000)/1000:null});
   }
   recomputeScores(result);
-  return {animals:result, totalRows:total, skipped:skipped, validPts:result.reduce(function(s,a){return s+a.points;},0)};
+  return{animals:result,totalRows:total,skipped:skipped,validPts:result.reduce(function(s,a){return s+a.points;},0)};
 }
 
-function recomputeScores(list) {
-  if (!list.length) return;
-  var mxD=0,mxS=0,mxP=0;
-  for (var i=0;i<list.length;i++){
-    if(list[i].dist>mxD) mxD=list[i].dist;
-    if(list[i].avgSpeed>mxS) mxS=list[i].avgSpeed;
-    if(list[i].points>mxP) mxP=list[i].points;
-  }
-  mxD=mxD||1; mxS=mxS||1; mxP=mxP||1;
-  for (var i=0;i<list.length;i++){
-    list[i].score = Math.round((list[i].dist/mxD*0.50+list[i].avgSpeed/mxS*0.35+list[i].points/mxP*0.15)*10000)/10000;
+function recomputeScores(list){
+  if(!list.length)return;
+  var mxD=0,mxS=0,mxP=0,mxHR=0;
+  for(var i=0;i<list.length;i++){if(list[i].dist>mxD)mxD=list[i].dist;if(list[i].avgSpeed>mxS)mxS=list[i].avgSpeed;if(list[i].points>mxP)mxP=list[i].points;if(list[i].homerange>mxHR)mxHR=list[i].homerange;}
+  mxD=mxD||1;mxS=mxS||1;mxP=mxP||1;mxHR=mxHR||1;
+  for(var i=0;i<list.length;i++){
+    list[i].score=Math.round((list[i].dist/mxD*0.50+list[i].avgSpeed/mxS*0.35+list[i].points/mxP*0.15)*10000)/10000;
+    list[i].roScore=Math.round((1-list[i].homerange/mxHR)*10000)/10000;
+    list[i].stasScore=Math.round(((1-list[i].homerange/mxHR)*0.40+(1-list[i].dist/mxD)*0.40+list[i].points/mxP*0.20)*10000)/10000;
   }
   list.sort(function(a,b){return b.score-a.score;});
-  for (var i=0;i<list.length;i++) list[i].rank=i+1;
+  for(var i=0;i<list.length;i++)list[i].rank=i+1;
+  var ss=list.slice().sort(function(a,b){return b.stasScore-a.stasScore;});
+  for(var i=0;i<ss.length;i++)ss[i].stasRank=i+1;
 }
 
-/* ── UTILS ── */
-function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
-function fmtSpan(h){if(!h||h<0)return"—";if(h<24)return h.toFixed(1)+" t";return Math.floor(h/24)+"d "+(h%24).toFixed(0)+"t";}
-function fmtDate(ep){if(!ep)return"—";return new Date(ep*1000).toLocaleString("no-NO",{dateStyle:"short",timeStyle:"short"});}
-
-/* ── STATUS ── */
+/* Status helpers */
 function setstep(id,cls){var el=document.getElementById("s-"+id);if(el)el.className="step"+(cls?" "+cls:"");}
 function setfill(pct,cls){var f=document.getElementById("pfill");f.style.width=pct+"%";f.className="pfill"+(cls?" "+cls:"");}
 function statusShow(title,sub){
   document.getElementById("statusPanel").style.display="block";
-  document.getElementById("spIcon").textContent="⏳";
-  document.getElementById("spIcon").className="sp-icon spin";
-  document.getElementById("spTitle").textContent=title;
-  document.getElementById("spSub").textContent=sub||"";
-  setfill(0,"");
-  ["read","parse","calc","render"].forEach(function(s){setstep(s,"");});
+  document.getElementById("spIcon").textContent="⏳";document.getElementById("spIcon").className="sp-icon spin";
+  document.getElementById("spTitle").textContent=title;document.getElementById("spSub").textContent=sub||"";
+  setfill(0,"");["read","parse","calc","render"].forEach(function(s){setstep(s,"");});
 }
 function statusDone(title){
-  document.getElementById("spIcon").textContent="✅";
-  document.getElementById("spIcon").className="sp-icon";
-  document.getElementById("spTitle").textContent=title;
-  document.getElementById("spSub").textContent="";
-  setfill(100,"ok");
-  setstep("render","ok");
+  document.getElementById("spIcon").textContent="✅";document.getElementById("spIcon").className="sp-icon";
+  document.getElementById("spTitle").textContent=title;document.getElementById("spSub").textContent="";
+  setfill(100,"ok");setstep("render","ok");
   setTimeout(function(){document.getElementById("statusPanel").style.display="none";},2500);
 }
 function statusFail(msg){
-  document.getElementById("spIcon").textContent="❌";
-  document.getElementById("spIcon").className="sp-icon";
-  document.getElementById("spTitle").textContent="Feil";
-  document.getElementById("spSub").textContent=msg;
-  setfill(30,"fail");
-  var eb=document.getElementById("errBox");
-  eb.textContent="⚠ "+msg; eb.style.display="block";
+  document.getElementById("spIcon").textContent="❌";document.getElementById("spIcon").className="sp-icon";
+  document.getElementById("spTitle").textContent="Feil";document.getElementById("spSub").textContent=msg;
+  setfill(30,"fail");showRankErr(msg);
 }
-function showErr(m){var el=document.getElementById("errBox");if(m){el.textContent="⚠ "+m;el.style.display="block";}else el.style.display="none";}
+function showRankErr(m){var el=document.getElementById("rankErr");if(m){el.textContent="⚠ "+m;el.style.display="block";}else el.style.display="none";}
 
-/* ── FILE HANDLING ── */
-function handleFile(file) {
-  if (!file) return;
-  showErr(null);
-  document.getElementById("results").style.display="none";
-  document.getElementById("topAct").style.display="none";
-  var mb = Math.round(file.size/1024/1024*10)/10;
-  statusShow("Leser "+file.name, mb+" MB");
-  setstep("read","on"); setfill(5);
-
-  var reader = new FileReader();
-  reader.onprogress = function(e) {
-    if (e.lengthComputable) setfill(Math.min(20, Math.round(e.loaded/e.total*20)));
-  };
-  reader.onerror = function() { statusFail("Kunne ikke lese filen."); };
-  reader.onload = function(e) {
-    setstep("read","ok"); setstep("parse","on"); setfill(25);
-    document.getElementById("spTitle").textContent = "Analyserer GPS-data...";
-    document.getElementById("spSub").textContent   = "Behandler "+mb+" MB";
-
-    // Use setTimeout to let the UI update before heavy processing
-    setTimeout(function() {
-      try {
-        var text = e.target.result;
-        setstep("parse","ok"); setstep("calc","on"); setfill(50);
-
-        // Process in a timeout so browser can repaint progress
-        setTimeout(function() {
-          try {
-            var data = parseAndAggregate(text, function(pct) { setfill(pct); });
-            animals = data.animals;
-            setstep("calc","ok"); setstep("render","on"); setfill(90);
-            document.getElementById("spTitle").textContent = "Tegner tabell...";
-
-            setTimeout(function() {
-              renderStats(data);
-              renderChart();
-              renderTable();
-              document.getElementById("results").style.display="block";
+function handleRankFile(file){
+  if(!file)return;showRankErr(null);
+  document.getElementById("rankResults").style.display="none";document.getElementById("topAct").style.display="none";
+  var mb=Math.round(file.size/1024/1024*10)/10;
+  statusShow("Leser "+file.name,mb+" MB");setstep("read","on");setfill(5);
+  var reader=new FileReader();
+  reader.onerror=function(){statusFail("Kunne ikke lese filen.");};
+  reader.onload=function(e){
+    setstep("read","ok");setstep("parse","on");setfill(25);
+    document.getElementById("spTitle").textContent="Analyserer GPS-data...";
+    setTimeout(function(){
+      try{
+        var text=e.target.result;setstep("parse","ok");setstep("calc","on");setfill(55);
+        setTimeout(function(){
+          try{
+            var data=parseRankCSV(text);rankAnimals=data.animals;
+            setstep("calc","ok");setstep("render","on");setfill(90);
+            setTimeout(function(){
+              renderStats(data);renderChart();renderTable();
+              document.getElementById("rankResults").style.display="block";
               document.getElementById("topAct").style.display="flex";
-              statusDone("Ferdig! "+animals.length+" individer analysert");
-            }, 30);
-          } catch(err) { statusFail(err.message); }
-        }, 30);
-      } catch(err) { statusFail(err.message); }
-    }, 30);
+              statusDone("Ferdig! "+rankAnimals.length+" individer analysert");
+            },30);
+          }catch(err){statusFail(err.message);}
+        },30);
+      }catch(err){statusFail(err.message);}
+    },30);
   };
-  reader.readAsText(file, "UTF-8");
+  reader.readAsText(file,"UTF-8");
 }
 
-/* ── STATS ── */
 function renderStats(d){
-  var td=animals.reduce(function(s,a){return s+a.dist;},0);
-  var top=animals[0];
+  var td=rankAnimals.reduce(function(s,a){return s+a.dist;},0),top=rankAnimals[0];
+  var mostRo=rankAnimals.slice().sort(function(a,b){return b.roScore-a.roScore;})[0];
   document.getElementById("sGrid").innerHTML=
-    '<div class="scard"><div class="sl">Individer</div><div class="sv">'+animals.length+'</div><div class="ss">sauer sporet</div></div>'+
+    '<div class="scard"><div class="sl">Individer</div><div class="sv">'+rankAnimals.length+'</div><div class="ss">sauer sporet</div></div>'+
     '<div class="scard"><div class="sl">Posisjoner</div><div class="sv">'+d.validPts.toLocaleString("no")+'</div><div class="ss">av '+(d.totalRows+d.skipped).toLocaleString("no")+' rader</div></div>'+
     '<div class="scard"><div class="sl">Total distanse</div><div class="sv">'+td.toFixed(0)+'</div><div class="ss">km samlet</div></div>'+
-    '<div class="scard"><div class="sl">Mest aktiv</div><div class="sv" style="font-size:16px;margin-top:3px">'+esc(top.id)+'</div><div class="ss">'+top.dist.toFixed(1)+' km</div></div>';
+    '<div class="scard"><div class="sl">Mest aktiv</div><div class="sv" style="font-size:16px;margin-top:3px">'+esc(top.id)+'</div><div class="ss">'+top.dist.toFixed(1)+' km</div></div>'+
+    '<div class="scard"><div class="sl">Mest i ro</div><div class="sv" style="font-size:16px;margin-top:3px">'+esc(mostRo.id)+'</div><div class="ss">'+mostRo.homerange.toFixed(1)+' km² beiteområde</div></div>';
 }
 
-/* ── CHART ── */
-function barColor(rank,total){
-  if(rank===1)return"#FAC775"; if(rank===2)return"#D3D1C7"; if(rank===3)return"#F0997B";
-  var p=rank/total;
-  if(p<0.25)return"#1D9E75"; if(p<0.5)return"#185FA5"; if(p<0.75)return"#BA7517"; return"#888780";
+function barColor(rank,total,metric){
+  if(metric==="roScore"){var p=rank/total;return p<0.25?"#185FA5":p<0.5?"#378ADD":p<0.75?"#85B7EB":"#B5D4F4";}
+  if(rank===1)return"#FAC775";if(rank===2)return"#D3D1C7";if(rank===3)return"#F0997B";
+  var p=rank/total;return p<0.25?"#1D9E75":p<0.5?"#185FA5":p<0.75?"#BA7517":"#888780";
 }
 function metricFmt(m,v){
-  if(m==="score")return Math.round(v*100)+"%";
-  if(m==="dist")return v.toFixed(1)+" km";
-  if(m==="avgSpeed")return v.toFixed(2)+" km/t";
-  if(m==="points")return v.toLocaleString("no");
-  if(m==="roScore")return Math.round(v*100)+"%";
-  if(m==="homerange")return v.toFixed(1)+" km²";
+  if(m==="score"||m==="roScore"||m==="stasScore")return Math.round(v*100)+"%";
+  if(m==="dist")return v.toFixed(1)+" km";if(m==="avgSpeed")return v.toFixed(2)+" km/t";
+  if(m==="homerange")return v.toFixed(1)+" km²";if(m==="points")return v.toLocaleString("no");
   return String(v);
 }
-function metricLabel(m){return{score:"Aktivitetsscore (%)",dist:"Distanse (km)",avgSpeed:"Snittfart (km/t)",points:"GPS-målinger",roScore:"Ro-score (stasjonær %)",homerange:"Beiteområde (km²)"}[m]||m;}
+function metricLabel(m){
+  return{score:"Aktivitetsscore (%)",roScore:"Ro-score",dist:"Distanse (km)",avgSpeed:"Snittfart (km/t)",homerange:"Beiteområde (km²)",stasScore:"Stasjonær-score",points:"GPS-målinger"}[m]||m;
+}
+
 function renderChart(){
-  if(!animals||!animals.length)return;
+  if(!rankAnimals||!rankAnimals.length)return;
   var n=parseInt(document.getElementById("chartTop").value)||20;
-  var list=animals.slice().sort(function(a,b){return b[chartMetric]-a[chartMetric];}).slice(0,n);
-  var maxV=list[0][chartMetric]||1, total=list.length;
-  var h=Math.min(total*22+4,420);
-  document.getElementById("chartWrap").style.height=h+"px";
+  var sorted=rankAnimals.slice().sort(function(a,b){return b[chartMetric]-a[chartMetric];});
+  if(chartMetric==="homerange")sorted=rankAnimals.slice().sort(function(a,b){return a[chartMetric]-b[chartMetric];});
+  var list=sorted.slice(0,n),maxV=0,total=list.length;
+  for(var i=0;i<list.length;i++)if(list[i][chartMetric]>maxV)maxV=list[i][chartMetric];
+  maxV=maxV||1;
+  document.getElementById("chartWrap").style.height=Math.min(total*22+4,420)+"px";
   var html="";
   for(var i=0;i<list.length;i++){
-    var a=list[i];
-    var pct=Math.round(a[chartMetric]/maxV*100);
-    var col=barColor(i+1,total);
-    html+='<div class="chart-row" data-id="'+esc(a.id)+'">'
-        +'<span class="clbl" title="'+esc(a.id)+'">'+esc(a.id)+'</span>'
-        +'<div class="cbar-wrap"><div class="cbar" style="width:'+pct+'%;background:'+col+'"></div></div>'
-        +'<span class="cval">'+metricFmt(chartMetric,a[chartMetric])+'</span>'
-        +'</div>';
+    var a=list[i],pct=Math.round(a[chartMetric]/maxV*100);
+    if(chartMetric==="homerange")pct=Math.round((1-a[chartMetric]/maxV)*100);
+    var col=barColor(i+1,total,chartMetric);
+    html+='<div class="chart-row" data-id="'+esc(a.id)+'"><span class="clbl" title="'+esc(a.id)+'">'+esc(a.id)+'</span><div class="cbar-wrap"><div class="cbar" style="width:'+pct+'%;background:'+col+'"></div></div><span class="cval">'+metricFmt(chartMetric,a[chartMetric])+'</span></div>';
   }
   document.getElementById("chartWrap").innerHTML=html;
   document.getElementById("chartLegend").innerHTML=
-    '<span><span class="cdot" style="background:#FAC775"></span>Topp 3</span>'+
-    '<span><span class="cdot" style="background:#1D9E75"></span>Topp 25%</span>'+
-    '<span><span class="cdot" style="background:#185FA5"></span>25–50%</span>'+
-    '<span><span class="cdot" style="background:#BA7517"></span>50–75%</span>'+
-    '<span><span class="cdot" style="background:#888780"></span>Bunn 25%</span>'+
+    (chartMetric==="roScore"?'<span><span class="cdot" style="background:#185FA5"></span>Mest i ro</span><span><span class="cdot" style="background:#378ADD"></span>Ganske i ro</span><span><span class="cdot" style="background:#85B7EB"></span>Litt aktiv</span><span><span class="cdot" style="background:#B5D4F4"></span>Aktiv</span>':
+    '<span><span class="cdot" style="background:#FAC775"></span>Topp 3</span><span><span class="cdot" style="background:#1D9E75"></span>Topp 25%</span><span><span class="cdot" style="background:#185FA5"></span>25–50%</span><span><span class="cdot" style="background:#BA7517"></span>50–75%</span><span><span class="cdot" style="background:#888780"></span>Bunn 25%</span>')+
     '<span style="margin-left:auto;font-style:italic">'+metricLabel(chartMetric)+'</span>';
 }
 
-/* ── TABLE ── */
 function renderTable(){
   var q=(document.getElementById("srch").value||"").toLowerCase();
-  var list=animals.filter(function(a){return a.id.toLowerCase().indexOf(q)>=0||a.telespor.toLowerCase().indexOf(q)>=0;});
-  list=list.slice().sort(function(a,b){
-    var va=a[sortKey],vb=b[sortKey];
-    if(typeof va==="string")return sortDir*String(va).localeCompare(String(vb),"no");
-    return sortDir*((vb==null?-1e9:vb)-(va==null?-1e9:va));
-  });
-  var mx=0; for(var j=0;j<list.length;j++) if(list[j].dist>mx) mx=list[j].dist; mx=mx||1;
+  var list=rankAnimals.filter(function(a){return a.id.toLowerCase().indexOf(q)>=0||a.telespor.toLowerCase().indexOf(q)>=0;});
+  list=list.slice().sort(function(a,b){var va=a[sortKey],vb=b[sortKey];if(typeof va==="string")return sortDir*String(va).localeCompare(String(vb),"no");return sortDir*((vb==null?-1e9:vb)-(va==null?-1e9:va));});
+  var mx=0;for(var j=0;j<list.length;j++)if(list[j].dist>mx)mx=list[j].dist;mx=mx||1;
   document.getElementById("cbadge").textContent=list.length+" individer vist";
-  if(!list.length){document.getElementById("tbody").innerHTML='<tr><td colspan="13" style="text-align:center;padding:40px;color:var(--tx2)">Ingen treff</td></tr>';return;}
+  if(!list.length){document.getElementById("tbody").innerHTML='<tr><td colspan="16" style="text-align:center;padding:40px;color:var(--tx2)">Ingen treff</td></tr>';return;}
   var rows="";
   for(var i=0;i<list.length;i++){
     var a=list[i];
     var bc=a.rank===1?"r1":a.rank===2?"r2":a.rank===3?"r3":"rn";
     var sc=a.score>0.6?"ph":a.score>0.3?"pm":"pl";
+    var roc=a.roScore>0.7?"ph":a.roScore>0.4?"pm":"pl";
     var pct=(a.dist/mx*100).toFixed(0);
     var tc=a.avgTemp!=null?(a.avgTemp>10?"tw":a.avgTemp<0?"tc":""):"";
     var bc2=a.avgBatt!=null?(a.avgBatt<0.3?"blow":"bok"):"";
@@ -608,6 +737,9 @@ function renderTable(){
       +'<td>'+a.maxSpeed.toFixed(2)+' km/t</td>'
       +'<td>'+a.points.toLocaleString("no")+'</td>'
       +'<td>'+fmtSpan(a.span)+'</td>'
+      +'<td>'+a.homerange.toFixed(1)+' km²</td>'
+      +'<td style="text-align:center">'+(a.stasRank<=3?'<span class="rk '+(a.stasRank===1?"r1":a.stasRank===2?"r2":"r3")+'">'+a.stasRank+'</span>':'<span style="font-size:12px;color:var(--tx2)">#'+a.stasRank+'</span>')+'</td>'
+      +'<td><span class="pill '+roc+'">'+Math.round(a.roScore*100)+'%</span></td>'
       +'<td class="'+tc+'">'+(a.avgTemp!=null?a.avgTemp.toFixed(1)+" °C":"—")+'</td>'
       +'<td class="'+bc2+'">'+(a.avgBatt!=null?a.avgBatt.toFixed(2)+" V":"—")+'</td>'
       +'<td><span class="pill '+sc+'">'+Math.round(a.score*100)+'%</span></td>'
@@ -617,89 +749,276 @@ function renderTable(){
   document.getElementById("tbody").innerHTML=rows;
 }
 
-/* ── DETAIL ── */
 function showDetail(id){
-  var a=null; for(var i=0;i<animals.length;i++){if(animals[i].id===id){a=animals[i];break;}}
-  if(!a)return;
+  var a=null;for(var i=0;i<rankAnimals.length;i++){if(rankAnimals[i].id===id){a=rankAnimals[i];break;}}if(!a)return;
   document.getElementById("dtTitle").textContent=a.id+" — Telespor "+(a.telespor||"ukjent");
-  var rows=[
-    ["Rangering","#"+a.rank+" av "+animals.length],
-    ["Aktivitetsscore",Math.round(a.score*100)+"%"],
-    ["Total distanse",a.dist.toFixed(3)+" km"],
-    ["Snittfart",a.avgSpeed.toFixed(2)+" km/t"],
-    ["Topphastighet",a.maxSpeed.toFixed(2)+" km/t"],
-    ["GPS-målinger",a.points.toLocaleString("no")],
-    ["Periode",fmtSpan(a.span)],
-    ["Første måling",fmtDate(a.first)],
-    ["Siste måling",fmtDate(a.last)],
-    ["Gj.snitt temp",a.avgTemp!=null?a.avgTemp.toFixed(1)+" °C":"—"],
-    ["Min / maks temp",a.minTemp!=null?a.minTemp.toFixed(1)+" / "+a.maxTemp.toFixed(1)+" °C":"—"],
-    ["Gj.snitt batteri",a.avgBatt!=null?a.avgBatt.toFixed(3)+" V":"—"],
-  ];
-  var html=""; for(var i=0;i<rows.length;i++) html+='<div class="dr"><span class="dk">'+rows[i][0]+'</span><span class="dv">'+rows[i][1]+'</span></div>';
-  document.getElementById("dtBody").innerHTML=html;
-  document.getElementById("modal").classList.add("open");
+  var rows=[["Aktivitetsrangering","#"+a.rank+" av "+rankAnimals.length],["Aktivitetsscore",Math.round(a.score*100)+"%"],["Stasjonær-rang","#"+a.stasRank+" av "+rankAnimals.length],["Stasjonær-score",Math.round(a.stasScore*100)+"%"],["Ro-score",Math.round(a.roScore*100)+"%"],["Beiteområde",a.homerange.toFixed(2)+" km²"],["Total distanse",a.dist.toFixed(3)+" km"],["Snittfart",a.avgSpeed.toFixed(2)+" km/t"],["Topphastighet",a.maxSpeed.toFixed(2)+" km/t"],["GPS-målinger",a.points.toLocaleString("no")],["Periode",fmtSpan(a.span)],["Første måling",fmtDateFull(a.first)],["Siste måling",fmtDateFull(a.last)],["Gj.snitt temp",a.avgTemp!=null?a.avgTemp.toFixed(1)+" °C":"—"],["Min / maks temp",a.minTemp!=null?a.minTemp.toFixed(1)+" / "+a.maxTemp.toFixed(1)+" °C":"—"],["Gj.snitt batteri",a.avgBatt!=null?a.avgBatt.toFixed(3)+" V":"—"]];
+  var html="";for(var i=0;i<rows.length;i++)html+='<div class="dr"><span class="dk">'+rows[i][0]+'</span><span class="dv">'+rows[i][1]+'</span></div>';
+  document.getElementById("dtBody").innerHTML=html;document.getElementById("modal").classList.add("open");
 }
 
-/* ── SELECTION & DELETE ── */
 function getChecked(){var cbs=document.querySelectorAll(".rcb:checked"),ids=[];for(var i=0;i<cbs.length;i++)ids.push(cbs[i].value);return ids;}
 function updateSelUI(){
-  var ids=getChecked(), n=ids.length, all=document.querySelectorAll(".rcb"), sa=document.getElementById("selAll");
-  sa.indeterminate=n>0&&n<all.length; sa.checked=n>0&&n===all.length;
-  document.getElementById("delBtn").style.display=n>0?"":"none";
-  document.getElementById("delCount").textContent=n;
+  var ids=getChecked(),n=ids.length,all=document.querySelectorAll(".rcb"),sa=document.getElementById("selAll");
+  sa.indeterminate=n>0&&n<all.length;sa.checked=n>0&&n===all.length;
+  document.getElementById("delBtn").style.display=n>0?"":"none";document.getElementById("delCount").textContent=n;
   var banner=document.getElementById("delBanner");
   if(n>0){banner.classList.add("show");document.getElementById("delBannerTxt").textContent=n+" individ"+(n===1?"":"er")+" valgt";}
   else banner.classList.remove("show");
 }
 function clearSel(){var cbs=document.querySelectorAll(".rcb");for(var i=0;i<cbs.length;i++)cbs[i].checked=false;document.getElementById("selAll").checked=false;updateSelUI();}
 function deleteSelected(){
-  var ids=getChecked(); if(!ids.length)return;
+  var ids=getChecked();if(!ids.length)return;
   var names=ids.slice(0,5).join(", ")+(ids.length>5?" og "+(ids.length-5)+" til":"");
   if(!confirm("Fjerne "+ids.length+" individ"+(ids.length===1?"":"er")+"?\n\n"+names))return;
   var idSet={};for(var i=0;i<ids.length;i++)idSet[ids[i]]=true;
-  animals=animals.filter(function(a){return!idSet[a.id];});
-  recomputeScores(animals);
-  clearSel(); renderChart(); renderTable();
-  var td=0; for(var i=0;i<animals.length;i++) td+=animals[i].dist;
+  rankAnimals=rankAnimals.filter(function(a){return!idSet[a.id];});
+  recomputeScores(rankAnimals);clearSel();renderChart();renderTable();
+  var td=0;for(var i=0;i<rankAnimals.length;i++)td+=rankAnimals[i].dist;
   var cards=document.querySelectorAll("#sGrid .scard .sv");
-  if(cards[0])cards[0].textContent=animals.length;
-  if(cards[2])cards[2].textContent=td.toFixed(0);
-  if(cards[3]&&animals.length)cards[3].textContent=animals[0].id;
+  if(cards[0])cards[0].textContent=rankAnimals.length;if(cards[2])cards[2].textContent=td.toFixed(0);
+  if(cards[3]&&rankAnimals.length)cards[3].textContent=rankAnimals[0].id;
+  if(cards[4]&&rankAnimals.length){var mr=rankAnimals.slice().sort(function(a,b){return b.roScore-a.roScore;})[0];cards[4].textContent=mr.id;}
 }
-
-/* ── EXPORT ── */
 function exportCSV(){
-  var hdr=["Rang","Individnr","Telespornr","Distanse_km","Snittfart_kmt","Topphast_kmt","Malinger","Periode_timer","Foerste_maling","Siste_maling","AvgTemp_C","MinTemp_C","MaxTemp_C","AvgBatteri_V","Aktivitetsscore_pst","Homerange_km2","RoScore_pst"];
+  var hdr=["Rang","Individnr","Telespornr","Distanse_km","Snittfart_kmt","Topphast_kmt","Malinger","Periode_timer","Foerste_maling","Siste_maling","Beiteomrade_km2","StasjonaerRang","StasjonaerScore_pst","RoScore_pst","AvgTemp_C","MinTemp_C","MaxTemp_C","AvgBatteri_V","Aktivitetsscore_pst"];
   var rows=[hdr];
-  for(var i=0;i<animals.length;i++){
-    var a=animals[i];
-    rows.push([a.rank,a.id,a.telespor,a.dist.toFixed(3),a.avgSpeed.toFixed(3),a.maxSpeed.toFixed(3),a.points,a.span.toFixed(2),fmtDate(a.first),fmtDate(a.last),a.avgTemp!=null?a.avgTemp.toFixed(2):"",a.minTemp!=null?a.minTemp.toFixed(1):"",a.maxTemp!=null?a.maxTemp.toFixed(1):"",a.avgBatt!=null?a.avgBatt.toFixed(3):"",Math.round(a.score*100)+"%",(a.homerange||0).toFixed(2),Math.round((a.roScore||0)*100)+"%"]);
-  }
+  for(var i=0;i<rankAnimals.length;i++){var a=rankAnimals[i];rows.push([a.rank,a.id,a.telespor,a.dist.toFixed(3),a.avgSpeed.toFixed(3),a.maxSpeed.toFixed(3),a.points,a.span.toFixed(2),fmtDateFull(a.first),fmtDateFull(a.last),a.homerange.toFixed(2),a.stasRank,Math.round(a.stasScore*100)+"%",Math.round(a.roScore*100)+"%",a.avgTemp!=null?a.avgTemp.toFixed(2):"",a.minTemp!=null?a.minTemp.toFixed(1):"",a.maxTemp!=null?a.maxTemp.toFixed(1):"",a.avgBatt!=null?a.avgBatt.toFixed(3):"",Math.round(a.score*100)+"%"]);}
   var blob=new Blob(["\uFEFF"+rows.map(function(r){return r.join(";");}).join("\n")],{type:"text/csv;charset=utf-8"});
-  var url=URL.createObjectURL(blob); var el=document.createElement("a"); el.href=url; el.download="telespor_rangering.csv"; el.click();
+  var url=URL.createObjectURL(blob);var el=document.createElement("a");el.href=url;el.download="telespor_rangering.csv";el.click();
+}
+function resetRanking(){
+  rankAnimals=[];document.getElementById("rankResults").style.display="none";
+  document.getElementById("topAct").style.display="none";document.getElementById("statusPanel").style.display="none";
+  document.getElementById("rankFileInput").value="";showRankErr(null);
 }
 
-/* ── RESET ── */
-function resetApp(){
-  animals=[];
-  document.getElementById("results").style.display="none";
-  document.getElementById("topAct").style.display="none";
-  document.getElementById("statusPanel").style.display="none";
-  document.getElementById("fileInput").value="";
-  showErr(null);
+/* ══════════════════════════════════════════
+   ═══ TAB 2: BATTERY ═══
+   ══════════════════════════════════════════ */
+var batCsvRows=null;
+
+function parseBatCSV(text){
+  var lines=text.trim().split(/\r?\n/);if(lines.length<2)throw new Error("Filen er for kort");
+  var sep=lines[0].split(";").length>lines[0].split(",").length?";":",";
+  var rawH=lines[0].split(sep).map(function(h){return h.trim().replace(/"/g,"");});
+  var hdrs=rawH.map(function(h){return h.toLowerCase().replace(/å/g,"a").replace(/ø/g,"o").replace(/æ/g,"ae").replace(/,\s*/g,"_").replace(/ /g,"_");});
+  function fi(ex,fz){for(var i=0;i<hdrs.length;i++)if(ex.indexOf(hdrs[i])>=0)return i;if(fz)for(var i=0;i<hdrs.length;i++)for(var j=0;j<fz.length;j++)if(hdrs[i].indexOf(fz[j])>=0)return i;return -1;}
+  var tsI=fi(["maletidspunkt","mletidspunkt"],["tidspunkt","timestamp"]);
+  var battI=fi(["batterispenning"],["batter"]),tempI=fi(["temperatur"],["temp"]);
+  var vhfI=fi(["feltstyrke_vhf"],["vhf"]),gsmI=fi(["feltstyrke_gsm"],["gsm"]),dispI=fi(["dispersjonstid"],["dispers"]);
+  if(tsI<0)tsI=1;if(battI<0)battI=13;if(tempI<0)tempI=14;
+  var rows=[];
+  for(var i=1;i<lines.length;i++){
+    var line=lines[i].trim();if(!line)continue;
+    var cols=line.split(sep).map(function(c){return c.trim().replace(/"/g,"");});
+    var ts=new Date(cols[tsI]||"").getTime();if(isNaN(ts))continue;
+    rows.push({
+      ts:ts,
+      batt:battI<cols.length?parseFloat(cols[battI]):NaN,
+      temp:tempI<cols.length?parseFloat(cols[tempI]):NaN,
+      vhf:vhfI>=0&&vhfI<cols.length?parseFloat(cols[vhfI]):NaN,
+      gsm:gsmI>=0&&gsmI<cols.length?parseFloat(cols[gsmI]):NaN,
+      disp:dispI>=0&&dispI<cols.length?parseFloat(cols[dispI]):NaN
+    });
+  }
+  if(!rows.length)throw new Error("Ingen gyldige rader");
+  rows.sort(function(a,b){return a.ts-b.ts;});
+  return rows;
 }
 
-/* ── EVENTS ── */
-document.getElementById("fileInput").addEventListener("change", function(){
-  if (this.files[0]) handleFile(this.files[0]);
-});
+function detectGaps(rows){
+  var gaps=[];
+  for(var i=1;i<rows.length;i++){
+    var diffH=(rows[i].ts-rows[i-1].ts)/3600000;
+    if(diffH>48)gaps.push({beforeTs:rows[i].ts,gapH:diffH});
+  }
+  gaps.sort(function(a,b){return b.gapH-a.gapH;});
+  return gaps;
+}
+
+async function analyzeGaps(rows,gaps){
+  var aiBox=document.getElementById("aiBox"),aiSug=document.getElementById("aiSug"),gapListEl=document.getElementById("gapList");
+  aiBox.style.display="block";aiSug.className="ai-sug loading";aiSug.textContent="Analyserer opphold i dataloggen...";gapListEl.innerHTML="";
+  if(gaps.length){
+    gapListEl.innerHTML=gaps.slice(0,6).map(function(g){
+      var d=isoDate(g.beforeTs);var label=fmtDateLbl(g.beforeTs)+" ("+Math.round(g.gapH/24)+"d opphold)";
+      return'<span class="gap-chip" data-date="'+d+'" onclick="selectGap(this)">'+label+'</span>';
+    }).join("");
+  }
+  var firstDate=fmtDateLbl(rows[0].ts),lastDate=fmtDateLbl(rows[rows.length-1].ts);
+  var totalDays=Math.round((rows[rows.length-1].ts-rows[0].ts)/86400000);
+  var gapSummary=gaps.slice(0,5).map(function(g){return fmtDateLbl(g.beforeTs)+" ("+Math.round(g.gapH)+"t opphold)";}).join("; ");
+  var prompt="Du er en IoT-ekspert som analyserer GPS-sporingsdata for sauer med Telespor-enheter.\n\nDataloggen strekker seg fra "+firstDate+" til "+lastDate+" ("+totalDays+" dager totalt).\nAntall datapunkter: "+rows.length+"\n"+(gaps.length?"Opphold i dataloggen (>48 timer): "+gapSummary+"\n":"Ingen lange opphold funnet.\n")+"\nOppgave: Anbefal den mest sannsynlige datoen for siste batteribytte basert på opphold i dataloggen. Et opphold >48 timer indikerer sannsynligvis at batteriet var flatt. Hvis ingen opphold, er start av logg mest sannsynlig. Svar kort og direkte på norsk — maks 3 setninger. Oppgi anbefalt dato tydelig.";
+  try{
+    var resp=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:200,messages:[{role:"user",content:prompt}]})});
+    var data=await resp.json();
+    var txt=data.content&&data.content[0]?data.content[0].text:"Kunne ikke analysere.";
+    aiSug.className="ai-sug";aiSug.textContent=txt;
+  }catch(e){
+    aiSug.className="ai-sug";
+    aiSug.textContent=gaps.length?"Fant "+gaps.length+" opphold. Største: "+fmtDateLbl(gaps[0].beforeTs)+" ("+Math.round(gaps[0].gapH/24)+" dager). Klikk en dato nedenfor eller angi manuelt.":"Ingen lange opphold funnet. Anbefalt startdato: "+fmtDateLbl(rows[0].ts)+".";
+  }
+}
+
+function selectGap(el){
+  document.querySelectorAll(".gap-chip").forEach(function(c){c.classList.remove("sel");});
+  el.classList.add("sel");document.getElementById("batDate").value=el.getAttribute("data-date");
+  document.getElementById("calcBtn").disabled=false;
+}
+
+function handleBatFile(file){
+  if(!file)return;showBatErr(null);document.getElementById("batResults").style.display="none";
+  var reader=new FileReader();
+  reader.onerror=function(){showBatErr("Kunne ikke lese filen.");};
+  reader.onload=function(e){
+    try{
+      batCsvRows=parseBatCSV(e.target.result);
+      var fd=fmtDateLbl(batCsvRows[0].ts),ld=fmtDateLbl(batCsvRows[batCsvRows.length-1].ts);
+      document.getElementById("batFileInfo").textContent=file.name+" · "+batCsvRows.length.toLocaleString("no")+" rader · "+fd+" → "+ld;
+      document.getElementById("batFileLoaded").classList.add("show");
+      document.getElementById("batStep1Done").style.display="inline";
+      document.getElementById("batDate").value=isoDate(batCsvRows[0].ts);
+      document.getElementById("calcBtn").disabled=false;
+      var gaps=detectGaps(batCsvRows);analyzeGaps(batCsvRows,gaps);
+    }catch(err){showBatErr(err.message);}
+  };
+  reader.readAsText(file,"UTF-8");
+}
+
+function volt(r){
+  var b=r.batt;
+  if(!isNaN(b)&&b>0){var rv=b*10;if(rv>2.5&&rv<4.5)return rv;}
+  return parseFloat(document.getElementById("s_volt").value)||3.6;
+}
+
+function calcEnergy(rows,batteryTs){
+  var whTotal=parseFloat(document.getElementById("s_wh").value)||12.6;
+  var idleA=(parseFloat(document.getElementById("s_idle").value)||25)/1e6;
+  var loraTxA=(parseFloat(document.getElementById("s_loraTx").value)||20)/1000;
+  var loraDurS=(parseFloat(document.getElementById("s_loraDur").value)||500)/1000;
+  var lteDurS=parseFloat(document.getElementById("s_lteDur").value)||5;
+  var lteTxA=(parseFloat(document.getElementById("s_lteTx").value)||90)/1000;
+  var gpsA=(parseFloat(document.getElementById("s_gps").value)||29)/1000;
+  var filtered=rows.filter(function(r){return r.ts>=batteryTs;});
+  if(!filtered.length)throw new Error("Ingen datapunkter etter valgt dato. Velg en tidligere dato.");
+  var spanH=(filtered[filtered.length-1].ts-filtered[0].ts)/3600000,spanDays=spanH/24;
+  var whIdle=0,whLora=0,whLte=0,whGps=0,loraCount=0,lteCount=0,totalDispSec=0,dispCount=0;
+  for(var i=0;i<filtered.length;i++){
+    var r=filtered[i],v=volt(r);
+    var dtH=i===0?0:(r.ts-filtered[i-1].ts)/3600000;
+    var gpsH=!isNaN(r.disp)&&r.disp>0?r.disp/3600:0;
+    var radioH=!isNaN(r.gsm)&&r.gsm>0?lteDurS/3600:loraDurS/3600;
+    var sleepH=Math.max(0,dtH-gpsH-radioH);
+    whIdle+=idleA*sleepH*v;
+    if(gpsH>0){whGps+=gpsA*gpsH*v;totalDispSec+=r.disp;dispCount++;}
+    if(!isNaN(r.gsm)&&r.gsm>0){whLte+=lteTxA*(lteDurS/3600)*v;lteCount++;}
+    else{whLora+=loraTxA*(loraDurS/3600)*v;loraCount++;}
+  }
+  var whUsed=whIdle+whLora+whLte+whGps,whRemain=Math.max(0,whTotal-whUsed);
+  var pct=Math.round(Math.max(0,Math.min(100,whRemain/whTotal*100)));
+  var whPerDay=spanDays>0?whUsed/spanDays:0,daysLeft=whPerDay>0?Math.round(whRemain/whPerDay):null;
+  function avg(vals){return vals.length?vals.reduce(function(a,b){return a+b;},0)/vals.length:null;}
+  var vhfVals=[],gsmVals=[],battVals=[],tempVals=[];
+  filtered.forEach(function(r){
+    if(!isNaN(r.vhf)&&r.vhf>0)vhfVals.push(r.vhf);
+    if(!isNaN(r.gsm)&&r.gsm>0)gsmVals.push(r.gsm);
+    if(!isNaN(r.batt))battVals.push(r.batt);
+    if(!isNaN(r.temp))tempVals.push(r.temp);
+  });
+  return{pct,whUsed,whRemain,whTotal,whIdle,whLora,whLte,whGps,spanDays,spanH,whPerDay,daysLeft,loraCount,lteCount,totalDispSec,dispCount,msgCount:filtered.length,avgVhf:avg(vhfVals),avgGsm:avg(gsmVals),avgBatt:avg(battVals),avgTemp:avg(tempVals),filtered:filtered};
+}
+
+function drawGauge(pct){
+  var c=document.getElementById("gaugeCanvas"),ctx=c.getContext("2d");
+  var W=c.width,H=c.height,cx=W/2,cy=H-20,R=70;
+  ctx.clearRect(0,0,W,H);
+  var start=Math.PI,end=2*Math.PI;
+  ctx.beginPath();ctx.arc(cx,cy,R,start,end);ctx.strokeStyle="rgba(128,128,100,0.15)";ctx.lineWidth=16;ctx.lineCap="round";ctx.stroke();
+  [{s:0,e:0.3,c:"#D85A30"},{s:0.3,e:0.6,c:"#BA7517"},{s:0.6,e:1,c:"#1D9E75"}].forEach(function(z){ctx.beginPath();ctx.arc(cx,cy,R,start+Math.PI*z.s,start+Math.PI*z.e);ctx.strokeStyle=z.c+"44";ctx.lineWidth=16;ctx.stroke();});
+  var color=pct>60?"#1D9E75":pct>30?"#BA7517":"#D85A30";
+  if(pct>0){ctx.beginPath();ctx.arc(cx,cy,R,start,start+Math.PI*(pct/100));ctx.strokeStyle=color;ctx.lineWidth=16;ctx.lineCap="round";ctx.stroke();}
+  var na=start+Math.PI*(pct/100);ctx.save();ctx.translate(cx,cy);ctx.rotate(na);ctx.beginPath();ctx.moveTo(-4,0);ctx.lineTo(R-22,0);ctx.strokeStyle=color;ctx.lineWidth=3;ctx.lineCap="round";ctx.stroke();ctx.restore();
+  ctx.beginPath();ctx.arc(cx,cy,6,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();
+  ctx.fillStyle="rgba(128,128,100,0.55)";ctx.font="10px system-ui";ctx.textAlign="center";
+  ctx.fillText("0%",cx+Math.cos(start)*(R+16),cy+Math.sin(start)*(R+16));
+  ctx.fillText("50%",cx,cy-(R+16));
+  ctx.fillText("100%",cx+Math.cos(end)*(R+16),cy+Math.sin(end)*(R+16));
+}
+
+function drawTimeline(res){
+  var c=document.getElementById("tlCanvas"),ctx=c.getContext("2d");
+  var W=c.width,H=c.height,PAD={t:20,r:20,b:38,l:60},PW=W-PAD.l-PAD.r,PH=H-PAD.t-PAD.b;
+  ctx.clearRect(0,0,W,H);
+  var rows=res.filtered,whMax=res.whTotal,t0=rows[0].ts,t1=rows[rows.length-1].ts,spanMs=t1-t0||1;
+  var idleA=(parseFloat(document.getElementById("s_idle").value)||25)/1e6;
+  var loraTxA=(parseFloat(document.getElementById("s_loraTx").value)||20)/1000,loraDurS=(parseFloat(document.getElementById("s_loraDur").value)||500)/1000;
+  var lteDurS=parseFloat(document.getElementById("s_lteDur").value)||5,lteTxA=(parseFloat(document.getElementById("s_lteTx").value)||90)/1000;
+  var gpsA=(parseFloat(document.getElementById("s_gps").value)||29)/1000;
+  for(var g=0;g<=4;g++){var gy=PAD.t+PH*(g/4);ctx.strokeStyle="rgba(128,128,100,0.12)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(PAD.l,gy);ctx.lineTo(PAD.l+PW,gy);ctx.stroke();ctx.fillStyle="rgba(128,128,100,0.5)";ctx.font="10px system-ui";ctx.textAlign="right";ctx.fillText((whMax*(1-g/4)).toFixed(1)+" Wh",PAD.l-5,gy+4);}
+  var pts=[{x:0,y:whMax}],cumUsed=0,prevTs=rows[0].ts;
+  for(var i=0;i<rows.length;i++){
+    var r=rows[i],v=volt(r);
+    var dtH=(r.ts-prevTs)/3600000,gpsH=!isNaN(r.disp)&&r.disp>0?r.disp/3600:0;
+    var radioH=!isNaN(r.gsm)&&r.gsm>0?lteDurS/3600:loraDurS/3600;
+    cumUsed+=idleA*Math.max(0,dtH-gpsH-radioH)*v;
+    if(gpsH>0)cumUsed+=gpsA*gpsH*v;
+    if(!isNaN(r.gsm)&&r.gsm>0)cumUsed+=lteTxA*(lteDurS/3600)*v;else cumUsed+=loraTxA*(loraDurS/3600)*v;
+    pts.push({x:(r.ts-t0)/spanMs,y:Math.max(0,whMax-cumUsed)});prevTs=r.ts;
+  }
+  ctx.beginPath();pts.forEach(function(p,i){var px=PAD.l+p.x*PW,py=PAD.t+PH*(1-p.y/whMax);i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);});
+  ctx.strokeStyle="#1D9E75";ctx.lineWidth=2;ctx.stroke();
+  ctx.lineTo(PAD.l+PW,PAD.t+PH);ctx.lineTo(PAD.l,PAD.t+PH);ctx.closePath();ctx.fillStyle="rgba(29,158,117,0.08)";ctx.fill();
+  var thY=PAD.t+PH*(1-0.2);ctx.setLineDash([4,4]);ctx.strokeStyle="#D85A30";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(PAD.l,thY);ctx.lineTo(PAD.l+PW,thY);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle="#D85A30";ctx.font="10px system-ui";ctx.textAlign="left";ctx.fillText("20% terskel ("+(whMax*0.2).toFixed(1)+" Wh)",PAD.l+4,thY-4);
+  ctx.fillStyle="rgba(128,128,100,0.5)";ctx.font="10px system-ui";ctx.textAlign="center";
+  for(var xl=0;xl<=4;xl++)ctx.fillText(new Date(t0+spanMs*(xl/4)).toLocaleDateString("no-NO",{month:"short",day:"numeric"}),PAD.l+PW*(xl/4),H-6);
+}
+
+function renderBatResults(res,batteryTs){
+  drawGauge(res.pct);
+  var pctEl=document.getElementById("gaugePct");pctEl.textContent=res.pct+"%";pctEl.style.color=res.pct>60?"var(--green)":res.pct>30?"var(--amber)":"var(--coral)";
+  var stEl=document.getElementById("gaugeStatus");stEl.textContent=res.pct>60?"Batteri OK 👍":res.pct>30?"Halvtomt — følg med ⚠":res.pct>10?"Lavt — bytt snart 🔴":"Kritisk lavt ❌";stEl.style.color=res.pct>60?"var(--green)":res.pct>30?"var(--amber)":"var(--coral)";
+  var bds=fmtDateLbl(batteryTs);
+  document.getElementById("sinceGrid").innerHTML=[{sl:"Siden batteribytte",sv:bds,ss:""},{sl:"Dager i drift",sv:Math.round(res.spanDays),ss:"dager"},{sl:"Sendinger totalt",sv:res.msgCount.toLocaleString("no"),ss:"meldinger"},{sl:"LoRa / LTE-M",sv:res.loraCount+" / "+res.lteCount,ss:"fordeling"},{sl:"Est. dager igjen",sv:res.daysLeft!=null?res.daysLeft+"d":"—",ss:"ved snitt "+res.whPerDay.toFixed(4)+" Wh/dag"}].map(function(c){return'<div class="since-card"><div class="sl">'+c.sl+'</div><div class="sv">'+c.sv+'</div><div class="ss">'+c.ss+'</div></div>';}).join("");
+  document.getElementById("whDetails").innerHTML=[["Batterikapasitet",res.whTotal.toFixed(2)+" Wh"],["Estimert brukt",res.whUsed.toFixed(4)+" Wh ("+Math.round(res.whUsed/res.whTotal*100)+"%)"],["Estimert igjen",res.whRemain.toFixed(4)+" Wh"],["Snitt forbruk per dag",res.whPerDay.toFixed(5)+" Wh/dag"],res.avgBatt!=null?["Snitt batterispenning (raw)",res.avgBatt.toFixed(3)+" V (LiSOCl2 — lite informativt)"]:null,res.avgTemp!=null?["Snitt temperatur",res.avgTemp.toFixed(1)+" °C"]:null].filter(Boolean).map(function(r){return'<div class="wh-row"><span class="wh-k">'+r[0]+'</span><span class="wh-v">'+r[1]+'</span></div>';}).join("");
+  var sigs=[{icon:"📡",lbl:"LoRa",val:res.loraCount,sub:"meldinger via LR1110"},{icon:"📶",lbl:"LTE-M",val:res.lteCount,sub:"meldinger via nRF9160"},{icon:"⏱",lbl:"GPS lyttetid",val:Math.round(res.totalDispSec)+"s",sub:"total ("+res.dispCount+" opptak)"}];
+  if(res.avgVhf!=null)sigs.push({icon:"📻",lbl:"VHF feltstyrke",val:res.avgVhf.toFixed(0),sub:"snitt"});
+  if(res.avgGsm!=null)sigs.push({icon:"🌐",lbl:"GSM feltstyrke",val:res.avgGsm.toFixed(0),sub:"snitt"});
+  document.getElementById("sigGrid").innerHTML=sigs.map(function(s){return'<div class="sig-item"><div class="sig-icon">'+s.icon+'</div><div class="sig-lbl">'+s.lbl+'</div><div class="sig-val">'+s.val+'</div><div class="sig-sub">'+s.sub+'</div></div>';}).join("");
+  var tot=res.whUsed||0.0001;
+  document.getElementById("brkBody").innerHTML=[{nm:"GPS (Quectel L76LM)",badge:"b-gps",ev:res.dispCount+" opptak, "+Math.round(res.totalDispSec)+"s",wh:res.whGps,col:"#1D9E75"},{nm:"LoRa TX (LR1110)",badge:"b-lora",ev:res.loraCount+" meldinger",wh:res.whLora,col:"#185FA5"},{nm:"LTE-M TX (nRF9160)",badge:"b-lte",ev:res.lteCount+" meldinger",wh:res.whLte,col:"#D85A30"},{nm:"System sleep (25 µA)",badge:"b-sys",ev:Math.round(res.spanH)+"h periode",wh:res.whIdle,col:"#888780"}].map(function(it){var pct=Math.round(it.wh/tot*100);return'<tr><td><span class="bdg '+it.badge+'">'+it.nm+'</span></td><td style="color:var(--tx2);font-size:12px">'+it.ev+'</td><td>'+it.wh.toFixed(5)+' Wh<div class="cbar2-wrap"><div class="cbar2" style="width:'+pct+'%;background:'+it.col+'"></div></div></td><td style="font-weight:500">'+pct+'%</td></tr>';}).join("");
+  drawTimeline(res);
+  document.getElementById("batResults").style.display="block";
+  document.getElementById("batResults").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function runBatCalc(){
+  if(!batCsvRows){showBatErr("Last opp en CSV-fil først.");return;}
+  var dateVal=document.getElementById("batDate").value,timeVal=document.getElementById("batTime").value||"00:00";
+  if(!dateVal){showBatErr("Angi dato for batteribytte.");return;}
+  showBatErr(null);
+  var batteryTs=new Date(dateVal+"T"+timeVal+":00").getTime();
+  if(isNaN(batteryTs)){showBatErr("Ugyldig dato.");return;}
+  try{var res=calcEnergy(batCsvRows,batteryTs);renderBatResults(res,batteryTs);}
+  catch(err){showBatErr(err.message);}
+}
+function showBatErr(m){var el=document.getElementById("batErr");if(m){el.textContent="⚠ "+m;el.style.display="block";}else el.style.display="none";}
+function toggleSettings(){var b=document.getElementById("setBody"),a=document.getElementById("setArr");if(b.classList.contains("open")){b.classList.remove("open");a.textContent="▼";}else{b.classList.add("open");a.textContent="▲";}}
+
+/* ══════════════════════════════════════════
+   EVENTS
+   ══════════════════════════════════════════ */
+document.getElementById("rankFileInput").addEventListener("change",function(){if(this.files[0])handleRankFile(this.files[0]);});
+document.getElementById("batFileInput").addEventListener("change",function(){if(this.files[0])handleBatFile(this.files[0]);});
+document.getElementById("batDate").addEventListener("change",function(){if(this.value)document.getElementById("calcBtn").disabled=false;});
+
 document.querySelector("thead").addEventListener("click",function(e){
-  var th=e.target.closest("th[data-k]"); if(!th)return;
+  var th=e.target.closest("th[data-k]");if(!th)return;
   var k=th.getAttribute("data-k");
   if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=-1;}
   document.querySelectorAll("thead th").forEach(function(t){t.classList.remove("sorted");});
-  th.classList.add("sorted"); renderTable();
+  th.classList.add("sorted");renderTable();
 });
 document.getElementById("sortSel").addEventListener("change",function(){sortKey=this.value;sortDir=-1;renderTable();});
 document.getElementById("srch").addEventListener("input",function(){renderTable();});
@@ -709,7 +1028,7 @@ document.getElementById("tbody").addEventListener("click",function(e){var btn=e.
 document.getElementById("ctabs").addEventListener("click",function(e){var btn=e.target.closest(".ctab");if(!btn)return;document.querySelectorAll(".ctab").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");chartMetric=btn.getAttribute("data-metric");renderChart();});
 document.getElementById("chartTop").addEventListener("change",function(){renderChart();});
 document.getElementById("chartWrap").addEventListener("click",function(e){
-  var row=e.target.closest(".chart-row"); if(!row)return;
+  var row=e.target.closest(".chart-row");if(!row)return;
   var id=row.getAttribute("data-id");
   document.querySelectorAll(".chart-row").forEach(function(r){r.classList.remove("sel");});
   row.classList.add("sel");
@@ -717,10 +1036,18 @@ document.getElementById("chartWrap").addEventListener("click",function(e){
   if(tr){tr.style.transition="background .3s";tr.style.background="var(--gbg)";setTimeout(function(){tr.style.background="";},1400);tr.scrollIntoView({behavior:"smooth",block:"nearest"});}
 });
 document.getElementById("modal").addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});
-var dz=document.getElementById("dz");
-dz.addEventListener("dragover",function(e){e.preventDefault();dz.classList.add("over");});
-dz.addEventListener("dragleave",function(){dz.classList.remove("over");});
-dz.addEventListener("drop",function(e){e.preventDefault();dz.classList.remove("over");var f=e.dataTransfer.files[0];if(f)handleFile(f);});
+
+// Drag & drop — ranking
+var rDz=document.getElementById("rankDz");
+rDz.addEventListener("dragover",function(e){e.preventDefault();rDz.classList.add("over");});
+rDz.addEventListener("dragleave",function(){rDz.classList.remove("over");});
+rDz.addEventListener("drop",function(e){e.preventDefault();rDz.classList.remove("over");var f=e.dataTransfer.files[0];if(f)handleRankFile(f);});
+
+// Drag & drop — battery
+var bDz=document.getElementById("batDz");
+bDz.addEventListener("dragover",function(e){e.preventDefault();bDz.classList.add("over");});
+bDz.addEventListener("dragleave",function(){bDz.classList.remove("over");});
+bDz.addEventListener("drop",function(e){e.preventDefault();bDz.classList.remove("over");var f=e.dataTransfer.files[0];if(f)handleBatFile(f);});
 </script>
 </body>
 </html>
