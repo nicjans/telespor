@@ -545,9 +545,11 @@ function metricFmt(m,v){
   if(m==="dist")return v.toFixed(1)+" km";
   if(m==="avgSpeed")return v.toFixed(2)+" km/t";
   if(m==="points")return v.toLocaleString("no");
+  if(m==="roScore")return Math.round(v*100)+"%";
+  if(m==="homerange")return v.toFixed(1)+" km²";
   return String(v);
 }
-function metricLabel(m){return{score:"Aktivitetsscore (%)",dist:"Distanse (km)",avgSpeed:"Snittfart (km/t)",points:"GPS-målinger"}[m]||m;}
+function metricLabel(m){return{score:"Aktivitetsscore (%)",dist:"Distanse (km)",avgSpeed:"Snittfart (km/t)",points:"GPS-målinger",roScore:"Ro-score (stasjonær %)",homerange:"Beiteområde (km²)"}[m]||m;}
 function renderChart(){
   if(!animals||!animals.length)return;
   var n=parseInt(document.getElementById("chartTop").value)||20;
@@ -668,11 +670,11 @@ function deleteSelected(){
 
 /* ── EXPORT ── */
 function exportCSV(){
-  var hdr=["Rang","Individnr","Telespornr","Distanse_km","Snittfart_kmt","Topphast_kmt","Malinger","Periode_timer","Foerste_maling","Siste_maling","AvgTemp_C","MinTemp_C","MaxTemp_C","AvgBatteri_V","Aktivitetsscore_pst"];
+  var hdr=["Rang","Individnr","Telespornr","Distanse_km","Snittfart_kmt","Topphast_kmt","Malinger","Periode_timer","Foerste_maling","Siste_maling","AvgTemp_C","MinTemp_C","MaxTemp_C","AvgBatteri_V","Aktivitetsscore_pst","Homerange_km2","RoScore_pst"];
   var rows=[hdr];
   for(var i=0;i<animals.length;i++){
     var a=animals[i];
-    rows.push([a.rank,a.id,a.telespor,a.dist.toFixed(3),a.avgSpeed.toFixed(3),a.maxSpeed.toFixed(3),a.points,a.span.toFixed(2),fmtDate(a.first),fmtDate(a.last),a.avgTemp!=null?a.avgTemp.toFixed(2):"",a.minTemp!=null?a.minTemp.toFixed(1):"",a.maxTemp!=null?a.maxTemp.toFixed(1):"",a.avgBatt!=null?a.avgBatt.toFixed(3):"",Math.round(a.score*100)+"%"]);
+    rows.push([a.rank,a.id,a.telespor,a.dist.toFixed(3),a.avgSpeed.toFixed(3),a.maxSpeed.toFixed(3),a.points,a.span.toFixed(2),fmtDate(a.first),fmtDate(a.last),a.avgTemp!=null?a.avgTemp.toFixed(2):"",a.minTemp!=null?a.minTemp.toFixed(1):"",a.maxTemp!=null?a.maxTemp.toFixed(1):"",a.avgBatt!=null?a.avgBatt.toFixed(3):"",Math.round(a.score*100)+"%",(a.homerange||0).toFixed(2),Math.round((a.roScore||0)*100)+"%"]);
   }
   var blob=new Blob(["\uFEFF"+rows.map(function(r){return r.join(";");}).join("\n")],{type:"text/csv;charset=utf-8"});
   var url=URL.createObjectURL(blob); var el=document.createElement("a"); el.href=url; el.download="telespor_rangering.csv"; el.click();
